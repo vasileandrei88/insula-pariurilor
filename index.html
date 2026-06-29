@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <meta name="theme-color" content="#07111F" />
+  <meta name="theme-color" content="#0A0E1A" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -17,29 +17,19 @@
   <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            night:   '#07111F',
-            surface: '#0C1B2E',
-            surf2:   '#11233A',
-            jungle:  '#0B3D2E',
-            teal:    '#18A87A',
-            tealHi:  '#22C58E',
-            mango:   '#F2BE4A',
-            coral:   '#E8543A',
-            coralHi: '#FF6A4D',
-            sand:    '#F7EDD8',
-            fog:     '#90A4B8',
+            ink:'#0A0E1A', ink2:'#0F1524', ink3:'#141B2B', line:'#1B2438',
+            lime:'#C6FF3D', limeDim:'#A9DD2E', ember:'#FF8A45', emberHi:'#FF5E3A',
+            paper:'#F2F5FF', mute:'#8B95A8', mute2:'#5B6478',
           },
-          fontFamily: {
-            display: ['Fraunces', 'serif'],
-            sans:    ['Plus Jakarta Sans', 'sans-serif'],
-          },
+          fontFamily: { grotesk:['Space Grotesk','sans-serif'], mono:['DM Mono','monospace'] },
         },
       },
     };
@@ -47,27 +37,27 @@
 
   <style>
     *{ -webkit-tap-highlight-color: transparent; }
-    html,body{ overscroll-behavior:none; background:#07111F; }
-    body{ font-family:'Plus Jakarta Sans',sans-serif; }
+    html,body{ overscroll-behavior:none; background:#0A0E1A; font-family:'Space Grotesk',sans-serif; }
     ::-webkit-scrollbar{ width:0; height:0; }
-    .no-scrollbar::-webkit-scrollbar{ display:none; }
-    .no-scrollbar{ -ms-overflow-style:none; scrollbar-width:none; }
-    @keyframes flicker{ from{ transform:scale(1) rotate(-2deg);} to{ transform:scale(1.08) rotate(2deg);} }
-    @keyframes pulse2{ 0%,100%{ box-shadow:0 0 0 0 rgba(24,168,122,.4);} 50%{ box-shadow:0 0 0 12px rgba(24,168,122,0);} }
+    .no-sb::-webkit-scrollbar{ display:none; }
+    .no-sb{ -ms-overflow-style:none; scrollbar-width:none; }
+    .mono{ font-family:'DM Mono',monospace; }
+    @keyframes flick{ from{ transform:scale(1) rotate(-2deg);} to{ transform:scale(1.07) rotate(2deg);} }
     @keyframes spin{ to{ transform:rotate(360deg);} }
-    @keyframes slideUp{ from{ opacity:0; transform:translateY(10px);} to{ opacity:1; transform:translateY(0);} }
-    @keyframes waveMove{ 0%,100%{ transform:translateX(0) scaleY(1);} 50%{ transform:translateX(-3%) scaleY(1.2);} }
-    @keyframes twinkle{ from{ opacity:.12;} to{ opacity:.85;} }
-    .flame{ animation:flicker 1.8s ease-in-out infinite alternate; }
-    .ai-pulse{ animation:pulse2 1.2s ease-in-out infinite; }
+    @keyframes rise{ from{ opacity:0; transform:translateY(10px);} to{ opacity:1; transform:translateY(0);} }
+    @keyframes pulseLime{ 0%,100%{ box-shadow:0 0 0 0 rgba(198,255,61,.4);} 50%{ box-shadow:0 0 0 11px rgba(198,255,61,0);} }
+    @keyframes kenburns{ from{ transform:scale(1.06);} to{ transform:scale(1.16);} }
+    .flame{ animation:flick 1.8s ease-in-out infinite alternate; }
     .spin{ animation:spin .8s linear infinite; }
-    .slide-up{ animation:slideUp .35s ease both; }
-    .safe-bottom{ padding-bottom:env(safe-area-inset-bottom,0); }
-    .tap{ transition:transform .12s ease, background .15s ease, border-color .15s ease; }
+    .rise{ animation:rise .35s ease both; }
+    .pulse-lime{ animation:pulseLime 1.2s ease-in-out infinite; }
+    .kb{ animation:kenburns 18s ease-in-out infinite alternate; }
+    .safe-b{ padding-bottom:env(safe-area-inset-bottom,0); }
+    .tap{ transition:transform .12s ease, background .15s, border-color .15s; }
     .tap:active{ transform:scale(.96); }
   </style>
 </head>
-<body class="bg-night text-sand">
+<body class="bg-ink text-paper">
 <div id="root"></div>
 
 <script>
@@ -85,8 +75,8 @@ const FB_CONFIG = {
   apiKey: "AIzaSyB7P0WdkqUWgnL-TnRT4sbeEJuPGgUa0bE",
   authDomain: "insula-pariurilor-2026.firebaseapp.com",
   projectId: "insula-pariurilor-2026",
-  storageBucket: "INLOCUIESTE.appspot.com",
-  messagingSenderId: "insula-pariurilor-2026.firebasestorage.app",
+  storageBucket: "insula-pariurilor-2026.firebasestorage.app",
+  messagingSenderId: "808831228616",
   appId: "1:808831228616:web:4d1fa344aea09ad2a1a3fd"
 };
 
@@ -96,6 +86,17 @@ const ADMIN_PWD = "Fcsb2026";
 
 firebase.initializeApp(FB_CONFIG);
 const db = firebase.firestore();
+
+// ── FUNDALURI THAILANDA (Unsplash, optimizate per pagină — fiecare diferit) ──
+const HERO_IMG = {
+  hero: "https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=1000&q=80&auto=format&fit=crop",
+  clasament: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=900&q=80&auto=format&fit=crop",
+  predictii: "https://images.unsplash.com/photo-1528181304800-259b08848526?w=900&q=80&auto=format&fit=crop",
+  bonfire: "https://images.unsplash.com/photo-1505228395891-9a51e7e86bf6?w=900&q=80&auto=format&fit=crop",
+  situatii: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=900&q=80&auto=format&fit=crop",
+  regulament: "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=900&q=80&auto=format&fit=crop",
+  admin: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=900&q=80&auto=format&fit=crop"
+};
 const EMJS = ['🏝️', '🔥', '💃', '🌺', '🌊', '😈', '💋', '🎭', '🌅', '👑', '🦩', '🐚'];
 const PQS = [{
   id: 'q1',
@@ -138,7 +139,139 @@ const PQS = [{
   p: 12,
   o: ['El pleacă cu ispita', 'Ea pleacă cu ispita', 'Nu', 'Ambii cu ispite']
 }];
-const BFQ = ['Cineva plânge la bonfire?', 'Concurentul neagă ce a făcut?', 'Radu face față dezamăgită / judecată?', 'Apar imagini cu sărut sau atingere intimă?', 'Cineva spune „eu îmi asum"?', 'Ceartă sau confruntare verbală?', 'Un concurent vrea să plece mai devreme?', 'Ispita apare față în față la bonfire?', 'Concurentul spune că e „doar prietenie"?', 'Un cuplu ia decizia finală în avans?', 'Cineva spune că „nu a simțit nimic"?', 'Partenerul de acasă izbucnește în lacrimi?'];
+
+// Bonfire: mix serios + meme/catchphrase real din emisiune (3 pct fiecare)
+const BFQ = ['😢 Cineva plânge la bonfire?', '📺 Radu zice „să vedem imaginile"?', '💬 Cineva spune „eu îmi asum"?', '💋 Apar imagini cu sărut sau atingere intimă?', '🛡️ Cineva zice „știu pe cine am lângă mine"?', '🔥 Ceartă sau confruntare verbală?', '🙏 Radu pare că cere răbdare („Doamne, dă-mi putere")?', '😇 Cineva zice „nu mă caracterizează / nu sunt genul"?', '🤥 Concurentul neagă ce a făcut?', '🎵 Cineva cere sau ascultă manele?', '🌅 Apare un „sumset" / plimbare romantică pe plajă?', '💯 Cineva se jură „pe ce am mai sfânt / pe viața mea"?', '🚪 Un concurent vrea să plece mai devreme?', '👥 Ispita apare față în față la bonfire?', '🗣️ Cineva spune că e „doar prietenie"?', '😭 Partenerul de acasă izbucnește în lacrimi?'];
+
+// Pariuri Peste/Sub per episod (+5 pct dacă nimerești partea corectă)
+const OVERUNDER = [{
+  id: 'ou1',
+  t: 'Câte persoane plâng în episod?',
+  line: 2,
+  lbl: 'persoane'
+}, {
+  id: 'ou2',
+  t: 'Câte „eu îmi asum" se aud?',
+  line: 3,
+  lbl: 'replici'
+}, {
+  id: 'ou3',
+  t: 'Câte sărutări apar pe cameră?',
+  line: 2,
+  lbl: 'sărutări'
+}];
+
+// Predicții GLOBALE de sezon (o singură dată, miză mare)
+const SEASON_PRED = [{
+  id: 's1',
+  t: '💔 Primul cuplu care se destramă?',
+  p: 20,
+  kind: 'couple'
+}, {
+  id: 's2',
+  t: '🛡️ Cine devine „noul Andrei" (cel mai încrezut)?',
+  p: 15,
+  kind: 'text'
+}, {
+  id: 's3',
+  t: '😈 Cea mai periculoasă ispită feminină?',
+  p: 15,
+  kind: 'text'
+}, {
+  id: 's4',
+  t: '😈 Cea mai periculoasă ispită masculină?',
+  p: 15,
+  kind: 'text'
+}, {
+  id: 's5',
+  t: '👑 Vedeta sezonului (cel mai mult ecran)?',
+  p: 15,
+  kind: 'text'
+}, {
+  id: 's6',
+  t: '🎭 Cine produce cel mai mare meme al sezonului?',
+  p: 12,
+  kind: 'text'
+}, {
+  id: 's7',
+  t: '💍 Se logodește sau se împacă cineva la final?',
+  p: 10,
+  kind: 'yesno'
+}, {
+  id: 's8',
+  t: '📊 Câte cupluri pleacă împreună?',
+  p: 12,
+  kind: 'count',
+  o: ['0', '1', '2', '3+']
+}];
+
+// Badge-uri / achievements
+const BADGES = [{
+  id: 'profet',
+  e: '🔮',
+  t: 'Profetul',
+  d: '5 predicții bonfire corecte la rând'
+}, {
+  id: 'ghinion',
+  e: '🎲',
+  t: 'Ghinionistul',
+  d: '5 predicții greșite la rând'
+}, {
+  id: 'noctambul',
+  e: '🦉',
+  t: 'Noctambulul',
+  d: 'Votezi des după miezul nopții'
+}, {
+  id: 'radufan',
+  e: '📺',
+  t: 'Fanul lui Radu',
+  d: 'Bifezi mereu „să vedem imaginile"'
+}, {
+  id: 'bonfire',
+  e: '🔥',
+  t: 'Bonfire King',
+  d: 'Cel mai bun la bonfire live'
+}, {
+  id: 'oracle',
+  e: '🎯',
+  t: 'Oracle',
+  d: 'Cel mai bun la predicțiile de sezon'
+}, {
+  id: 'observ',
+  e: '📋',
+  t: 'Observatorul',
+  d: 'Cele mai multe situații bifate'
+}, {
+  id: 'lider',
+  e: '👑',
+  t: 'Liderul Insulei',
+  d: 'Pe primul loc în clasament'
+}, {
+  id: 'ispita',
+  e: '😂',
+  t: 'Ispita Ratată',
+  d: 'Ultimul în clasament'
+}];
+
+// Premii (1000 RON la 10 jucători × 100 RON; se scalează automat)
+const PRIZE_PCT = [0.60, 0.22, 0.10, 0.08]; // 1, 2, 3, ultimul
+const PRIZE_META = [{
+  e: '🥇',
+  t: 'Radu Vâlcan al grupului',
+  sub: 'Marele câștigător'
+}, {
+  e: '🔥',
+  t: 'Bonfire-ul de argint',
+  sub: 'Locul 2'
+}, {
+  e: '🏝️',
+  t: 'Ultimul rămas pe insulă',
+  sub: 'Locul 3'
+}, {
+  e: '😂',
+  t: 'Ispita Ratată',
+  sub: 'Lingura de lemn'
+}];
 const SITS = [{
   e: '😢',
   t: 'Cineva plânge în cadru',
@@ -240,207 +373,117 @@ const SITS = [{
   p: 5,
   s: 5
 }];
-
-// ── helpers ──
 const slug = n => n.toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '');
 const totalPts = p => (p?.pts?.pred || 0) + (p?.pts?.bf || 0) + (p?.pts?.sit || 0);
 const starStr = s => s === 5 ? '★★★★★' : s === 3 ? '★★★' : s === 2 ? '★★' : '★';
+const pad2 = n => String(n).padStart(2, '0');
 async function sha(pin) {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pin + 'insula2026salt'));
   return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
 // ═══════════════════════════════════════════
-// SHARED UI
+// SHARED — PageHero (foto Thailanda + gradient)
 // ═══════════════════════════════════════════
+function PageHero({
+  img,
+  eyebrow,
+  title,
+  accent = 'lime',
+  extra,
+  tall
+}) {
+  const accentCls = accent === 'ember' ? 'text-ember' : 'text-lime';
+  return /*#__PURE__*/React.createElement("div", {
+    className: "relative overflow-hidden -mx-4 -mt-5 mb-5 " + (tall ? 'h-44' : 'h-36')
+  }, /*#__PURE__*/React.createElement("img", {
+    src: img,
+    alt: "",
+    className: "absolute inset-0 w-full h-full object-cover kb"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "absolute inset-0",
+    style: {
+      background: 'linear-gradient(to bottom,rgba(10,14,26,.15) 0%,rgba(10,14,26,.55) 55%,rgba(10,14,26,.99) 100%)'
+    }
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "absolute bottom-0 left-0 right-0 px-4 pb-4"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center gap-2 mb-1.5"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "mono text-[.6rem] tracking-[.14em] " + accentCls
+  }, eyebrow), extra), /*#__PURE__*/React.createElement("h1", {
+    className: "font-bold text-paper leading-[.95] tracking-[-.03em]",
+    style: {
+      fontSize: '1.9rem'
+    }
+  }, title)));
+}
 function Toast({
   msg
 }) {
   if (!msg) return null;
   return /*#__PURE__*/React.createElement("div", {
-    className: "fixed bottom-24 left-1/2 -translate-x-1/2 z-[9999] bg-surf2/95 border border-teal/30 rounded-xl px-4 py-2.5 text-sm text-sand backdrop-blur-md shadow-2xl slide-up max-w-[90vw] text-center pointer-events-none"
+    className: "fixed bottom-24 left-1/2 -translate-x-1/2 z-[9999] bg-ink3/95 border border-lime/30 rounded-xl px-4 py-2.5 text-sm text-paper backdrop-blur-md shadow-2xl rise max-w-[90vw] text-center pointer-events-none"
   }, msg);
 }
-function Stars() {
-  const stars = useMemo(() => Array.from({
-    length: 70
-  }, () => ({
-    s: Math.random() * 1.6 + .35,
-    top: Math.random() * 60,
-    left: Math.random() * 100,
-    o: Math.random() * .6 + .15,
-    dur: Math.random() * 3 + 2,
-    del: Math.random() * 4
-  })), []);
+function Spinner() {
   return /*#__PURE__*/React.createElement("div", {
-    className: "absolute inset-0 pointer-events-none"
-  }, stars.map((st, i) => /*#__PURE__*/React.createElement("div", {
-    key: i,
-    className: "absolute rounded-full bg-white",
-    style: {
-      width: st.s,
-      height: st.s,
-      top: st.top + '%',
-      left: st.left + '%',
-      opacity: st.o,
-      animation: `twinkle ${st.dur}s ease-in-out ${st.del}s infinite alternate`
-    }
-  })));
-}
-function PalmScene() {
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
-    className: "absolute pointer-events-none",
-    style: {
-      width: 56,
-      height: 56,
-      borderRadius: '50%',
-      background: 'radial-gradient(circle at 35% 38%,#FFF8D0,#F2C94C 45%,#C8972A)',
-      boxShadow: '0 0 40px 12px rgba(242,190,74,.28),0 0 80px 30px rgba(242,190,74,.1)',
-      top: '9%',
-      right: '15%'
-    }
-  }), /*#__PURE__*/React.createElement(Stars, null), /*#__PURE__*/React.createElement("div", {
-    className: "absolute bottom-[34%] -left-1 pointer-events-none"
-  }, /*#__PURE__*/React.createElement("svg", {
-    width: "140",
-    height: "240",
-    viewBox: "0 0 140 240",
-    fill: "none"
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M68 240 Q62 175 66 122 Q68 86 74 50",
-    stroke: "#2A1505",
-    strokeWidth: "8",
-    strokeLinecap: "round",
-    fill: "none"
-  }), /*#__PURE__*/React.createElement("path", {
-    d: "M74 50 Q36 32 8 47 Q36 56 64 62",
-    fill: "#0C4A20",
-    opacity: ".9"
-  }), /*#__PURE__*/React.createElement("path", {
-    d: "M74 50 Q50 13 64-6 Q72 19 76 44",
-    fill: "#0F5C28",
-    opacity: ".85"
-  }), /*#__PURE__*/React.createElement("path", {
-    d: "M74 50 Q102 23 134 42 Q106 56 79 61",
-    fill: "#0A3D1A",
-    opacity: ".8"
-  }), /*#__PURE__*/React.createElement("path", {
-    d: "M74 50 Q92 9 120 4 Q98 38 80 56",
-    fill: "#0D5224",
-    opacity: ".75"
-  }), /*#__PURE__*/React.createElement("path", {
-    d: "M74 50 Q26 47 2 66 Q34 62 66 65",
-    fill: "#0B4520",
-    opacity: ".7"
-  }))), /*#__PURE__*/React.createElement("div", {
-    className: "absolute bottom-[34%] -right-1 pointer-events-none",
-    style: {
-      transform: 'scaleX(-1)'
-    }
-  }, /*#__PURE__*/React.createElement("svg", {
-    width: "120",
-    height: "220",
-    viewBox: "0 0 120 220",
-    fill: "none"
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M60 220 Q55 160 59 112 Q61 78 65 42",
-    stroke: "#2A1505",
-    strokeWidth: "7",
-    strokeLinecap: "round",
-    fill: "none"
-  }), /*#__PURE__*/React.createElement("path", {
-    d: "M65 42 Q32 24 4 38 Q32 47 56 53",
-    fill: "#0C4A20",
-    opacity: ".9"
-  }), /*#__PURE__*/React.createElement("path", {
-    d: "M65 42 Q44 7 56-4 Q64 17 67 36",
-    fill: "#0F5C28",
-    opacity: ".85"
-  }), /*#__PURE__*/React.createElement("path", {
-    d: "M65 42 Q90 16 118 32 Q92 47 70 53",
-    fill: "#0A3D1A",
-    opacity: ".8"
-  }))), /*#__PURE__*/React.createElement("div", {
-    className: "absolute bottom-0 left-0 right-0 h-[34%] overflow-hidden",
-    style: {
-      background: 'linear-gradient(to bottom,#083D2A,#052418)'
-    }
+    className: "flex items-center justify-center py-16"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "absolute -left-[10%] w-[120%]",
-    style: {
-      height: 18,
-      top: -8,
-      background: '#0F6B52',
-      opacity: .55,
-      borderRadius: '50% 50% 0 0/18px 18px 0 0',
-      animation: 'waveMove 6s ease-in-out infinite'
-    }
-  }), /*#__PURE__*/React.createElement("div", {
-    className: "absolute -left-[10%] w-[120%]",
-    style: {
-      height: 14,
-      top: -4,
-      background: '#18A87A',
-      opacity: .35,
-      borderRadius: '50% 50% 0 0/18px 18px 0 0',
-      animation: 'waveMove 8s ease-in-out -2s infinite'
-    }
-  }), /*#__PURE__*/React.createElement("div", {
-    className: "absolute -left-[10%] w-[120%]",
-    style: {
-      height: 10,
-      top: 0,
-      background: '#1DC990',
-      opacity: .2,
-      borderRadius: '50% 50% 0 0/18px 18px 0 0',
-      animation: 'waveMove 11s ease-in-out -4s infinite'
-    }
-  })));
+    className: "w-8 h-8 rounded-full border-[3px] border-line border-t-lime spin"
+  }));
 }
 
 // ═══════════════════════════════════════════
-// AUTH SCREENS
+// HERO / AUTH SCREENS
 // ═══════════════════════════════════════════
 function Hero({
   onRegister,
   onLogin
 }) {
   return /*#__PURE__*/React.createElement("div", {
-    className: "fixed inset-0 flex flex-col items-center justify-center text-center overflow-hidden",
+    className: "fixed inset-0 overflow-hidden bg-ink"
+  }, /*#__PURE__*/React.createElement("img", {
+    src: HERO_IMG.hero,
+    alt: "",
+    className: "absolute inset-0 w-full h-full object-cover kb"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "absolute inset-0",
     style: {
-      background: 'linear-gradient(to bottom,#020C18 0%,#071628 38%,#0B2A1A 65%,#0D3D20 100%)'
+      background: 'linear-gradient(to bottom,rgba(10,14,26,.35) 0%,rgba(10,14,26,.6) 45%,rgba(10,14,26,.98) 100%)'
     }
-  }, /*#__PURE__*/React.createElement(PalmScene, null), /*#__PURE__*/React.createElement("div", {
-    className: "relative z-10 flex flex-col items-center px-6 -mt-[8vh]"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "relative z-10 h-full flex flex-col items-center justify-end text-center px-6 pb-16"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "flex items-center gap-2 text-[.62rem] font-bold tracking-[.22em] uppercase text-teal mb-4"
+    className: "mono text-[.62rem] tracking-[.2em] text-lime mb-4 flex items-center gap-2"
   }, /*#__PURE__*/React.createElement("span", {
-    className: "w-6 h-px bg-teal opacity-60"
-  }), "Sezonul 10 · 20 Iulie 2026", /*#__PURE__*/React.createElement("span", {
-    className: "w-6 h-px bg-teal opacity-60"
+    className: "w-5 h-px bg-lime/60"
+  }), "SEZONUL 10 · 20 IUL 2026", /*#__PURE__*/React.createElement("span", {
+    className: "w-5 h-px bg-lime/60"
   })), /*#__PURE__*/React.createElement("h1", {
-    className: "font-display font-black leading-[.92] text-white mb-2",
+    className: "font-bold leading-[.92] text-paper tracking-[-.04em] mb-3",
     style: {
-      fontSize: 'clamp(3rem,16vw,5rem)'
+      fontSize: 'clamp(3rem,17vw,5rem)'
     }
-  }, "Insula", /*#__PURE__*/React.createElement("span", {
-    className: "block italic text-mango",
+  }, "INSULA", /*#__PURE__*/React.createElement("span", {
+    className: "text-lime"
+  }, "."), /*#__PURE__*/React.createElement("span", {
+    className: "block text-paper/90",
     style: {
-      fontSize: '.62em'
+      fontSize: '.42em',
+      letterSpacing: '.02em',
+      fontWeight: 500
     }
-  }, "Pariurilor")), /*#__PURE__*/React.createElement("p", {
-    className: "text-fog text-sm font-light tracking-wide mb-8 max-w-[280px]"
+  }, "PARIURILOR")), /*#__PURE__*/React.createElement("p", {
+    className: "text-mute text-[.84rem] mb-8 max-w-[290px]"
   }, "Predicții · Bonfire Live · Situații · Clasament în timp real"), /*#__PURE__*/React.createElement("div", {
-    className: "flex flex-col gap-3 w-full max-w-[280px]"
+    className: "flex flex-col gap-3 w-full max-w-[290px]"
   }, /*#__PURE__*/React.createElement("button", {
     onClick: onRegister,
-    className: "tap bg-coral text-white font-bold text-[.92rem] py-3.5 rounded-full shadow-lg",
-    style: {
-      boxShadow: '0 4px 22px rgba(232,84,58,.4)'
-    }
+    className: "tap bg-lime text-ink font-bold text-[.92rem] py-3.5 rounded-2xl"
   }, "Creează cont"), /*#__PURE__*/React.createElement("button", {
     onClick: onLogin,
-    className: "tap bg-transparent border border-teal/40 text-teal font-semibold text-[.92rem] py-3.5 rounded-full"
+    className: "tap bg-white/[.06] border border-white/15 text-paper font-semibold text-[.92rem] py-3.5 rounded-2xl backdrop-blur-sm"
   }, "Am deja cont"))));
 }
 function AuthForm({
@@ -459,28 +502,34 @@ function AuthForm({
     pin2
   });
   return /*#__PURE__*/React.createElement("div", {
-    className: "fixed inset-0 flex items-center justify-center px-6",
+    className: "fixed inset-0 overflow-hidden bg-ink flex items-center justify-center px-6"
+  }, /*#__PURE__*/React.createElement("img", {
+    src: HERO_IMG.hero,
+    alt: "",
+    className: "absolute inset-0 w-full h-full object-cover opacity-40"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "absolute inset-0",
     style: {
-      background: 'rgba(7,17,31,.98)'
+      background: 'linear-gradient(to bottom,rgba(10,14,26,.7),rgba(10,14,26,.95))'
     }
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "relative z-10 w-full max-w-[360px] bg-ink2/85 border border-white/10 rounded-3xl p-7 backdrop-blur-xl"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "w-full max-w-[370px] bg-surface/85 border border-teal/15 rounded-2xl p-7"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "font-display text-xl font-bold text-white text-center mb-1"
-  }, "🏝️ ", /*#__PURE__*/React.createElement("span", {
-    className: "italic text-mango"
-  }, "Insula"), " Pariurilor"), /*#__PURE__*/React.createElement("div", {
-    className: "text-fog text-[.78rem] text-center mb-6"
+    className: "font-bold text-lg text-paper text-center mb-1"
+  }, "INSULA", /*#__PURE__*/React.createElement("span", {
+    className: "text-lime"
+  }, "."), " PARIURILOR"), /*#__PURE__*/React.createElement("div", {
+    className: "text-mute text-[.76rem] text-center mb-6"
   }, isReg ? 'Creează-ți contul pentru Sezonul 10' : 'Intră cu PIN-ul tău'), /*#__PURE__*/React.createElement("label", {
-    className: "block text-[.6rem] font-bold tracking-[.12em] uppercase text-fog mb-1.5"
+    className: "block mono text-[.58rem] tracking-[.12em] text-mute2 mb-1.5 uppercase"
   }, "Prenumele tău"), /*#__PURE__*/React.createElement("input", {
     value: name,
     onChange: e => setName(e.target.value),
     placeholder: "ex: Andrei",
     autoComplete: "off",
-    className: "w-full bg-night/80 border border-teal/20 rounded-lg px-3.5 py-3 text-[.9rem] text-sand outline-none focus:border-teal mb-3.5 transition-colors"
+    className: "w-full bg-ink/70 border border-white/10 rounded-xl px-3.5 py-3 text-[.9rem] text-paper outline-none focus:border-lime/60 mb-3.5 transition-colors"
   }), /*#__PURE__*/React.createElement("label", {
-    className: "block text-[.6rem] font-bold tracking-[.12em] uppercase text-fog mb-1.5"
+    className: "block mono text-[.58rem] tracking-[.12em] text-mute2 mb-1.5 uppercase"
   }, isReg ? 'Alege un PIN (4 cifre)' : 'PIN (4 cifre)'), /*#__PURE__*/React.createElement("input", {
     value: pin,
     onChange: e => setPin(e.target.value.replace(/\D/g, '')),
@@ -491,9 +540,9 @@ function AuthForm({
     onKeyDown: e => {
       if (e.key === 'Enter' && !isReg) submit();
     },
-    className: "w-full bg-night/80 border border-teal/20 rounded-lg px-3.5 py-3 text-[.9rem] text-sand outline-none focus:border-teal mb-3.5 transition-colors tracking-[.3em]"
+    className: "w-full bg-ink/70 border border-white/10 rounded-xl px-3.5 py-3 text-[.9rem] text-paper outline-none focus:border-lime/60 mb-3.5 transition-colors tracking-[.3em] mono"
   }), isReg && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("label", {
-    className: "block text-[.6rem] font-bold tracking-[.12em] uppercase text-fog mb-1.5"
+    className: "block mono text-[.58rem] tracking-[.12em] text-mute2 mb-1.5 uppercase"
   }, "Confirmă PIN-ul"), /*#__PURE__*/React.createElement("input", {
     value: pin2,
     onChange: e => setPin2(e.target.value.replace(/\D/g, '')),
@@ -504,97 +553,165 @@ function AuthForm({
     onKeyDown: e => {
       if (e.key === 'Enter') submit();
     },
-    className: "w-full bg-night/80 border border-teal/20 rounded-lg px-3.5 py-3 text-[.9rem] text-sand outline-none focus:border-teal mb-3.5 transition-colors tracking-[.3em]"
+    className: "w-full bg-ink/70 border border-white/10 rounded-xl px-3.5 py-3 text-[.9rem] text-paper outline-none focus:border-lime/60 mb-3.5 transition-colors tracking-[.3em] mono"
   }), /*#__PURE__*/React.createElement("div", {
-    className: "text-[.68rem] text-fog leading-relaxed mb-4 bg-mango/[.06] border border-mango/15 rounded-lg px-3 py-2.5"
+    className: "text-[.68rem] text-mute leading-relaxed mb-4 bg-lime/[.06] border border-lime/15 rounded-lg px-3 py-2.5"
   }, "⚠ Reține PIN-ul — nu există recuperare. Stocat securizat (SHA-256).")), /*#__PURE__*/React.createElement("button", {
     onClick: submit,
-    className: "tap w-full bg-coral text-white font-bold py-3 rounded-lg mb-2"
+    className: "tap w-full bg-lime text-ink font-bold py-3 rounded-xl mb-2"
   }, isReg ? 'Creează cont' : 'Intră pe insulă →'), /*#__PURE__*/React.createElement("div", {
-    className: "text-center text-teal text-[.77rem] cursor-pointer mt-2.5 hover:opacity-75",
+    className: "text-center text-lime text-[.77rem] cursor-pointer mt-2.5",
     onClick: onSwitch
   }, isReg ? 'Am deja cont — intră' : 'Nu am cont — creează unul'), /*#__PURE__*/React.createElement("div", {
-    className: "text-center text-fog text-[.72rem] cursor-pointer mt-2 hover:opacity-75",
+    className: "text-center text-mute2 text-[.72rem] cursor-pointer mt-2",
     onClick: onBack
   }, "← Înapoi")));
 }
 
 // ═══════════════════════════════════════════
-// LEADERBOARD
+// LEADERBOARD + PREMII + BADGES
 // ═══════════════════════════════════════════
 function Leaderboard({
   players,
   couples,
   curEp,
-  meId
+  meId,
+  sticky
 }) {
   const sorted = Object.values(players).sort((a, b) => totalPts(b) - totalPts(a));
   const M = ['🥇', '🥈', '🥉'];
-  const TT = ['👑 Radu Vâlcan', '🥈 Finalist', '🥉 Semifinalist'];
+  const TT = ['👑 Radu Vâlcan al grupului', '🔥 Bonfire-ul de argint', '🏝️ Ultimul rămas pe insulă'];
   const ldr = sorted[0];
-  const totGroup = sorted.reduce((s, p) => s + totalPts(p), 0);
   return /*#__PURE__*/React.createElement("div", {
-    className: "slide-up"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "text-[.6rem] font-bold tracking-[.2em] uppercase text-teal mb-1.5"
-  }, "Sezon 10 · Timp real"), /*#__PURE__*/React.createElement("h1", {
-    className: "font-display text-3xl font-black text-white leading-tight mb-1"
-  }, "Cine conduce ", /*#__PURE__*/React.createElement("span", {
-    className: "italic text-mango"
-  }, "insula?")), /*#__PURE__*/React.createElement("p", {
-    className: "text-fog text-[.8rem] leading-relaxed mb-5"
-  }, "Clasamentul se actualizează automat la toată lumea."), ldr && /*#__PURE__*/React.createElement("div", {
-    className: "rounded-2xl border border-mango/20 p-4 flex items-center gap-4 mb-4",
-    style: {
-      background: 'linear-gradient(135deg,rgba(15,61,46,.36),rgba(12,27,46,.7))'
-    }
+    className: "rise"
+  }, /*#__PURE__*/React.createElement(PageHero, {
+    img: HERO_IMG.clasament,
+    eyebrow: "CLASAMENT · EP." + pad2(curEp),
+    title: /*#__PURE__*/React.createElement(React.Fragment, null, "Cine conduce", /*#__PURE__*/React.createElement("br", null), "insula?"),
+    extra: /*#__PURE__*/React.createElement("span", {
+      className: "mono text-[.58rem] px-2 py-0.5 rounded-full bg-lime text-ink font-medium"
+    }, "● LIVE"),
+    tall: true
+  }), sticky && /*#__PURE__*/React.createElement("div", {
+    className: "bg-ember/[.1] border border-ember/30 rounded-2xl px-4 py-3 mb-4 flex gap-2.5 items-start"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "text-base"
+  }, "📌"), /*#__PURE__*/React.createElement("div", {
+    className: "text-[.8rem] text-paper/90 leading-snug"
+  }, sticky)), ldr && /*#__PURE__*/React.createElement("div", {
+    className: "rounded-2xl border border-lime/25 p-4 flex items-center gap-4 mb-4 bg-ink3"
   }, /*#__PURE__*/React.createElement("div", {
     className: "text-4xl"
-  }, "👑"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-    className: "text-[.58rem] font-bold tracking-[.15em] uppercase text-mango mb-0.5"
-  }, "Lider curent"), /*#__PURE__*/React.createElement("div", {
-    className: "font-display text-2xl font-black text-white leading-none"
+  }, "👑"), /*#__PURE__*/React.createElement("div", {
+    className: "min-w-0"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "mono text-[.58rem] tracking-[.15em] text-lime mb-0.5"
+  }, "LIDER CURENT"), /*#__PURE__*/React.createElement("div", {
+    className: "font-bold text-2xl text-paper leading-none truncate"
   }, ldr.emoji, " ", ldr.name), /*#__PURE__*/React.createElement("div", {
-    className: "text-[.72rem] text-fog mt-1"
-  }, totalPts(ldr), " pct · pred ", ldr.pts?.pred || 0, " · bonfire ", ldr.pts?.bf || 0, " · situații ", ldr.pts?.sit || 0))), /*#__PURE__*/React.createElement("div", {
-    className: "bg-surface/65 border border-teal/10 rounded-2xl overflow-hidden mb-4"
+    className: "mono text-[.7rem] text-mute2 mt-1"
+  }, totalPts(ldr), " pct · ", ldr.pts?.pred || 0, "·", ldr.pts?.bf || 0, "·", ldr.pts?.sit || 0))), /*#__PURE__*/React.createElement("div", {
+    className: "bg-ink2 border border-line rounded-2xl overflow-hidden mb-4"
   }, sorted.map((p, i) => /*#__PURE__*/React.createElement("div", {
     key: p.id,
-    className: "flex items-center gap-3 px-4 py-3 border-b border-teal/[.06] last:border-0 " + (i === 0 ? 'bg-mango/[.06]' : '')
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "text-sm font-bold w-7 text-center " + (i === 0 ? 'text-mango' : 'text-fog')
-  }, M[i] || i + 1), /*#__PURE__*/React.createElement("div", {
-    className: "w-9 h-9 rounded-full bg-jungle/60 border border-teal/20 flex items-center justify-center text-base shrink-0"
+    className: "flex items-center gap-3 px-3.5 py-3 border-b border-white/[.04] last:border-0 " + (i === 0 ? 'bg-lime/[.05]' : '')
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "mono text-[.78rem] font-medium w-6 text-center " + (i === 0 ? 'text-lime' : 'text-mute2')
+  }, pad2(i + 1)), /*#__PURE__*/React.createElement("div", {
+    className: "w-9 h-9 rounded-full flex items-center justify-center text-base shrink-0 " + (i === 0 ? 'bg-lime/15 border border-lime/40' : 'bg-line')
   }, p.emoji), /*#__PURE__*/React.createElement("div", {
     className: "flex-1 min-w-0"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "text-[.82rem] font-semibold text-sand truncate"
+    className: "text-[.82rem] font-medium text-paper truncate"
   }, p.name, p.id === meId && /*#__PURE__*/React.createElement("span", {
-    className: "text-[.58rem] text-teal ml-1"
-  }, "(tu)")), /*#__PURE__*/React.createElement("div", {
-    className: "text-[.62rem] text-fog"
-  }, i === sorted.length - 1 && i > 0 ? '😂 Ispita Ratată' : TT[i] || '🏝️ Concurent')), /*#__PURE__*/React.createElement("div", {
-    className: "text-right shrink-0"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "text-base font-bold text-mango leading-none"
-  }, totalPts(p)), /*#__PURE__*/React.createElement("div", {
-    className: "text-[.56rem] text-fog mt-0.5"
-  }, p.pts?.pred || 0, "·", p.pts?.bf || 0, "·", p.pts?.sit || 0)))), sorted.length === 0 && /*#__PURE__*/React.createElement("div", {
-    className: "px-4 py-6 text-center text-fog text-[.83rem]"
+    className: "text-[.56rem] text-lime ml-1"
+  }, "TU")), /*#__PURE__*/React.createElement("div", {
+    className: "mono text-[.6rem] text-mute2 truncate"
+  }, i === sorted.length - 1 && i > 0 ? 'ISPITA RATATĂ' : i < 3 ? TT[i].toUpperCase().replace(/[👑🔥🏝️]/g, '').trim() : 'CONCURENT')), /*#__PURE__*/React.createElement("div", {
+    className: "mono font-medium text-base shrink-0 text-right",
+    style: {
+      color: i === 0 ? '#C6FF3D' : '#8B95A8'
+    }
+  }, totalPts(p)))), sorted.length === 0 && /*#__PURE__*/React.createElement("div", {
+    className: "px-4 py-6 text-center text-mute text-[.83rem]"
   }, "Niciun jucător înregistrat încă.")), /*#__PURE__*/React.createElement("div", {
     className: "grid grid-cols-4 gap-2"
-  }, [['Jucători', sorted.length], ['Cupluri', couples.length], ['Episod', curEp], ['Pct grup', totGroup]].map(([l, v], i) => /*#__PURE__*/React.createElement("div", {
+  }, [['Jucători', sorted.length], ['Cupluri', couples.length], ['Episod', curEp], ['Pct grup', sorted.reduce((s, p) => s + totalPts(p), 0)]].map(([l, v], i) => /*#__PURE__*/React.createElement("div", {
     key: i,
-    className: "bg-surface/60 border border-teal/10 rounded-xl py-3 text-center"
+    className: "bg-ink2 border border-line rounded-xl py-2.5 text-center"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "font-display text-xl font-black text-mango leading-none"
+    className: "mono text-xl font-medium text-lime leading-none"
   }, v), /*#__PURE__*/React.createElement("div", {
-    className: "text-[.62rem] text-fog mt-1"
+    className: "text-[.6rem] text-mute2 mt-1"
   }, l)))));
+}
+function Prizes({
+  players
+}) {
+  const n = Math.max(Object.keys(players).length, 1);
+  const pot = n * 100;
+  const sums = PRIZE_PCT.map(pct => Math.round(pot * pct));
+  const sorted = Object.values(players).sort((a, b) => totalPts(b) - totalPts(a));
+  const winners = [sorted[0], sorted[1], sorted[2], sorted[sorted.length - 1]];
+  return /*#__PURE__*/React.createElement("div", {
+    className: "rise"
+  }, /*#__PURE__*/React.createElement(PageHero, {
+    img: HERO_IMG.regulament,
+    eyebrow: "MIZA · PREMII",
+    title: /*#__PURE__*/React.createElement(React.Fragment, null, "Cine pleacă", /*#__PURE__*/React.createElement("br", null), "cu banii?")
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "bg-ink2 border border-lime/20 rounded-2xl p-4 mb-4 text-center"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "mono text-[.6rem] tracking-[.15em] text-mute2 mb-1"
+  }, "FOND TOTAL · ", n, " JUCĂTORI × 100 RON"), /*#__PURE__*/React.createElement("div", {
+    className: "mono text-4xl font-medium text-lime"
+  }, pot, " ", /*#__PURE__*/React.createElement("span", {
+    className: "text-lg text-mute"
+  }, "RON"))), /*#__PURE__*/React.createElement("div", {
+    className: "flex flex-col gap-2.5"
+  }, PRIZE_META.map((pm, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    className: "rounded-2xl p-4 flex items-center gap-3.5 border " + (i === 0 ? 'bg-lime/[.07] border-lime/30' : 'bg-ink2 border-line')
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "text-3xl shrink-0"
+  }, pm.e), /*#__PURE__*/React.createElement("div", {
+    className: "flex-1 min-w-0"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "mono text-[.58rem] tracking-[.1em] text-mute2"
+  }, pm.sub.toUpperCase()), /*#__PURE__*/React.createElement("div", {
+    className: "font-bold text-[.95rem] text-paper truncate"
+  }, pm.t), winners[i] && /*#__PURE__*/React.createElement("div", {
+    className: "text-[.72rem] text-mute mt-0.5 truncate"
+  }, winners[i].emoji, " ", winners[i].name)), /*#__PURE__*/React.createElement("div", {
+    className: "mono font-medium text-right shrink-0",
+    style: {
+      color: i === 0 ? '#C6FF3D' : '#F2F5FF',
+      fontSize: i === 0 ? '1.35rem' : '1.05rem'
+    }
+  }, sums[i], /*#__PURE__*/React.createElement("span", {
+    className: "text-[.6rem] text-mute2"
+  }, " RON"))))), /*#__PURE__*/React.createElement("div", {
+    className: "mt-4 bg-ink2 border border-line rounded-2xl p-4"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "mono text-[.6rem] tracking-[.13em] text-mute2 mb-2.5"
+  }, "PREMII SIMBOLICE · DOAR ONOARE 🏅"), [['🔥', 'Bonfire King/Queen', 'cel mai bun la bonfire live'], ['🎯', 'Oracle', 'cele mai bune predicții de sezon'], ['📋', 'Observatorul', 'cele mai multe situații bifate'], ['🎲', 'Ghinionistul', 'consolare: o bere 🍺']].map(([e, t, d], i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    className: "flex items-center gap-2.5 py-2 border-b border-white/[.04] last:border-0"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "text-lg"
+  }, e), /*#__PURE__*/React.createElement("div", {
+    className: "flex-1"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "text-[.8rem] font-medium text-paper"
+  }, t), /*#__PURE__*/React.createElement("div", {
+    className: "text-[.66rem] text-mute2"
+  }, d))))), /*#__PURE__*/React.createElement("div", {
+    className: "mt-3 text-[.68rem] text-mute2 leading-relaxed px-1"
+  }, "Sumele se recalculează automat după numărul de jucători. La 10 jucători: 600 / 220 / 100 / 80 RON."));
 }
 
 // ═══════════════════════════════════════════
-// PREDICTIONS
+// PREDICTIONS (per cuplu + globale de sezon)
 // ═══════════════════════════════════════════
 function Predictions({
   couples,
@@ -602,22 +719,25 @@ function Predictions({
   toast
 }) {
   const [my, setMy] = useState({});
+  const [season, setSeason] = useState({});
   const [loading, setLoading] = useState(true);
+  const [view, setView] = useState('cuple'); // cuple | sezon
+
   useEffect(() => {
-    db.collection('predictions').doc(meId).get().then(s => {
-      setMy(s.exists ? s.data() : {});
+    Promise.all([db.collection('predictions').doc(meId).get(), db.collection('season_pred').doc(meId).get()]).then(([a, b]) => {
+      setMy(a.exists ? a.data() : {});
+      setSeason(b.exists ? b.data() : {});
       setLoading(false);
     });
   }, [meId]);
   const setPred = async (cid, qid, val) => {
-    const next = {
-      ...my,
+    setMy(p => ({
+      ...p,
       [cid]: {
-        ...(my[cid] || {}),
+        ...(p[cid] || {}),
         [qid]: val
       }
-    };
-    setMy(next);
+    }));
     await db.collection('predictions').doc(meId).set({
       [cid]: {
         [qid]: val
@@ -625,35 +745,52 @@ function Predictions({
     }, {
       merge: true
     });
-    toast('✓ Predicție salvată');
+    toast('✓ Salvat');
   };
-  if (loading) return /*#__PURE__*/React.createElement(Spinner, null);
+  const setSeason2 = async (qid, val) => {
+    setSeason(s => ({
+      ...s,
+      [qid]: val
+    }));
+    await db.collection('season_pred').doc(meId).set({
+      [qid]: val
+    }, {
+      merge: true
+    });
+    toast('✓ Salvat');
+  };
+  if (loading) return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(PageHero, {
+    img: HERO_IMG.predictii,
+    eyebrow: "MODUL 1",
+    title: "Predicțiile tale"
+  }), /*#__PURE__*/React.createElement(Spinner, null));
   return /*#__PURE__*/React.createElement("div", {
-    className: "slide-up"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "text-[.6rem] font-bold tracking-[.2em] uppercase text-teal mb-1.5"
-  }, "Modul 1 · Înainte de 20 iulie"), /*#__PURE__*/React.createElement("h1", {
-    className: "font-display text-3xl font-black text-white leading-tight mb-1"
-  }, "Predicțiile ", /*#__PURE__*/React.createElement("span", {
-    className: "italic text-mango"
-  }, "tale")), /*#__PURE__*/React.createElement("p", {
-    className: "text-fog text-[.8rem] leading-relaxed mb-5"
-  }, "Completează înainte de premieră. Salvate automat, vizibile doar de tine."), couples.length === 0 && /*#__PURE__*/React.createElement("div", {
-    className: "bg-surface/60 border border-teal/10 rounded-2xl px-4 py-8 text-center text-fog text-[.83rem]"
-  }, "Niciun cuplu configurat încă. Adminul adaugă cuplurile în tab-ul Admin."), couples.map(c => /*#__PURE__*/React.createElement("div", {
+    className: "rise"
+  }, /*#__PURE__*/React.createElement(PageHero, {
+    img: HERO_IMG.predictii,
+    eyebrow: "MODUL 1 · ÎNAINTE DE 20 IUL",
+    title: "Predicțiile tale"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "flex gap-2 mb-4 bg-ink2 border border-line rounded-xl p-1"
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: () => setView('cuple'),
+    className: "tap flex-1 py-2 rounded-lg text-[.78rem] font-medium " + (view === 'cuple' ? 'bg-lime text-ink' : 'text-mute')
+  }, "Pe cuplu"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => setView('sezon'),
+    className: "tap flex-1 py-2 rounded-lg text-[.78rem] font-medium " + (view === 'sezon' ? 'bg-lime text-ink' : 'text-mute')
+  }, "De sezon 🏆")), view === 'cuple' && (couples.length === 0 ? /*#__PURE__*/React.createElement("div", {
+    className: "bg-ink2 border border-line rounded-2xl px-4 py-8 text-center text-mute text-[.83rem]"
+  }, "Niciun cuplu configurat. Adminul îi adaugă în tab-ul Admin.") : couples.map(c => /*#__PURE__*/React.createElement("div", {
     key: c.id,
-    className: "bg-surface/70 border border-teal/10 rounded-2xl overflow-hidden mb-3.5"
+    className: "bg-ink2 border border-line rounded-2xl overflow-hidden mb-3.5"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "flex items-center gap-3 px-4 py-3.5 border-b border-teal/[.08]",
-    style: {
-      background: 'rgba(15,61,46,.28)'
-    }
+    className: "flex items-center gap-3 px-4 py-3.5 border-b border-white/[.06] bg-ink3"
   }, /*#__PURE__*/React.createElement("span", {
     className: "text-2xl"
   }, c.emoji), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-    className: "font-display text-base font-bold text-white"
+    className: "font-bold text-[.95rem] text-paper"
   }, c.he, " & ", c.she), c.desc && /*#__PURE__*/React.createElement("div", {
-    className: "text-[.66rem] text-fog"
+    className: "text-[.66rem] text-mute2"
   }, c.desc))), /*#__PURE__*/React.createElement("div", {
     className: "px-4 py-4 flex flex-col gap-4"
   }, PQS.map(q => {
@@ -663,115 +800,225 @@ function Predictions({
     }, /*#__PURE__*/React.createElement("div", {
       className: "flex justify-between items-baseline mb-2"
     }, /*#__PURE__*/React.createElement("span", {
-      className: "text-[.79rem] font-medium text-sand pr-2"
+      className: "text-[.79rem] font-medium text-paper pr-2"
     }, q.t), /*#__PURE__*/React.createElement("span", {
-      className: "text-[.6rem] font-bold text-mango bg-mango/10 px-1.5 py-0.5 rounded shrink-0"
+      className: "mono text-[.6rem] font-medium text-lime bg-lime/10 px-1.5 py-0.5 rounded shrink-0"
     }, "+", q.p)), /*#__PURE__*/React.createElement("div", {
       className: "flex flex-wrap gap-1.5"
     }, q.o.map(o => /*#__PURE__*/React.createElement("button", {
       key: o,
       onClick: () => setPred(c.id, q.id, o),
-      className: "tap text-[.72rem] font-medium px-3 py-2 rounded-full border transition-colors " + (cur === o ? 'bg-coral border-coral text-white' : 'bg-transparent border-teal/15 text-fog active:border-teal/50')
+      className: "tap text-[.72rem] font-medium px-3 py-2 rounded-full border " + (cur === o ? 'bg-lime border-lime text-ink' : 'bg-transparent border-line text-mute')
     }, o))));
-  })))));
-}
-function Spinner() {
-  return /*#__PURE__*/React.createElement("div", {
-    className: "flex items-center justify-center py-16"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "w-8 h-8 rounded-full border-[3px] border-teal/20 border-t-teal spin"
-  }));
+  }))))), view === 'sezon' && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    className: "bg-ember/[.08] border border-ember/25 rounded-2xl px-4 py-3 mb-4 text-[.76rem] text-paper/90 leading-relaxed"
+  }, "🏆 Predicții cu miză mare — un singur set pe tot sezonul. Punctele se acordă la finală."), SEASON_PRED.map(q => {
+    const cur = season[q.id];
+    let opts = [];
+    if (q.kind === 'couple') opts = couples.map(c => `${c.he} & ${c.she}`);else if (q.kind === 'yesno') opts = ['Da', 'Nu'];else if (q.kind === 'count') opts = q.o;
+    return /*#__PURE__*/React.createElement("div", {
+      key: q.id,
+      className: "bg-ink2 border border-line rounded-2xl p-4 mb-2.5"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "flex justify-between items-baseline mb-2.5"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "text-[.82rem] font-medium text-paper pr-2"
+    }, q.t), /*#__PURE__*/React.createElement("span", {
+      className: "mono text-[.6rem] font-medium text-ember bg-ember/10 px-1.5 py-0.5 rounded shrink-0"
+    }, "+", q.p)), q.kind === 'text' ? /*#__PURE__*/React.createElement("input", {
+      value: cur || '',
+      onChange: e => setSeason2(q.id, e.target.value),
+      placeholder: "Scrie numele...",
+      className: "w-full bg-ink/70 border border-line rounded-lg px-3 py-2 text-[.8rem] text-paper outline-none focus:border-lime/60"
+    }) : /*#__PURE__*/React.createElement("div", {
+      className: "flex flex-wrap gap-1.5"
+    }, opts.map(o => /*#__PURE__*/React.createElement("button", {
+      key: o,
+      onClick: () => setSeason2(q.id, o),
+      className: "tap text-[.72rem] font-medium px-3 py-2 rounded-full border " + (cur === o ? 'bg-ember border-ember text-ink' : 'bg-transparent border-line text-mute')
+    }, o))));
+  })));
 }
 
 // ═══════════════════════════════════════════
-// BONFIRE
+// BONFIRE (vot + peste/sub + consensul grupului)
 // ═══════════════════════════════════════════
 function Bonfire({
   meId,
   curEp,
   setCurEp,
+  players,
   toast
 }) {
   const [my, setMy] = useState({});
+  const [ou, setOu] = useState({});
+  const [weekly, setWeekly] = useState(null);
+  const [weeklyAns, setWeeklyAns] = useState('');
+  const [consensus, setConsensus] = useState({});
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    db.collection('bonfire_votes').doc(meId).get().then(s => {
-      setMy(s.exists ? s.data()['e' + curEp] || {} : {});
+    setLoading(true);
+    Promise.all([db.collection('bonfire_votes').doc(meId).get(), db.collection('overunder').doc(meId).get(), db.collection('config').doc('weekly').get(), db.collection('weekly_ans').doc(meId).get(), db.collection('bonfire_votes').get()]).then(([a, b, w, wa, all]) => {
+      setMy(a.exists ? a.data()['e' + curEp] || {} : {});
+      setOu(b.exists ? b.data()['e' + curEp] || {} : {});
+      setWeekly(w.exists ? w.data() : null);
+      setWeeklyAns(wa.exists ? wa.data()['e' + curEp] || '' : '');
+      // build consensus: count da/nu per question for current ep
+      const cons = {};
+      all.forEach(doc => {
+        const ep = doc.data()['e' + curEp];
+        if (!ep) return;
+        Object.entries(ep).forEach(([qi, v]) => {
+          if (v !== 'da' && v !== 'nu') return;
+          cons[qi] = cons[qi] || {
+            da: 0,
+            nu: 0,
+            tot: 0
+          };
+          cons[qi][v]++;
+          cons[qi].tot++;
+        });
+      });
+      setConsensus(cons);
       setLoading(false);
     });
   }, [meId, curEp]);
-  const vote = async (idx, val) => {
-    const next = {
-      ...my,
-      [idx]: val
-    };
-    setMy(next);
+  const vote = async (i, val) => {
+    setMy(m => ({
+      ...m,
+      [i]: val
+    }));
     await db.collection('bonfire_votes').doc(meId).set({
       ['e' + curEp]: {
-        [idx]: val
+        [i]: val
       }
     }, {
       merge: true
     });
   };
+  const voteOu = async (id, val) => {
+    setOu(o => ({
+      ...o,
+      [id]: val
+    }));
+    await db.collection('overunder').doc(meId).set({
+      ['e' + curEp]: {
+        [id]: val
+      }
+    }, {
+      merge: true
+    });
+  };
+  const saveWeekly = async () => {
+    await db.collection('weekly_ans').doc(meId).set({
+      ['e' + curEp]: weeklyAns
+    }, {
+      merge: true
+    });
+    toast('🎟️ Răspuns salvat la întrebarea săptămânii!');
+  };
   return /*#__PURE__*/React.createElement("div", {
-    className: "slide-up"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "text-[.6rem] font-bold tracking-[.2em] uppercase text-teal mb-1.5"
-  }, "Modul 2 · Per episod"), /*#__PURE__*/React.createElement("h1", {
-    className: "font-display text-3xl font-black text-white leading-tight mb-1"
-  }, "Bonfire ", /*#__PURE__*/React.createElement("span", {
-    className: "italic text-mango"
-  }, "Live")), /*#__PURE__*/React.createElement("p", {
-    className: "text-fog text-[.8rem] leading-relaxed mb-4"
-  }, "Votează înainte de scenă. 3 pct per răspuns corect. Salvat automat."), /*#__PURE__*/React.createElement("div", {
-    className: "rounded-2xl border border-coral/20 p-5 flex items-center gap-5 mb-4",
-    style: {
-      background: 'linear-gradient(135deg,rgba(15,61,46,.42),rgba(12,27,46,.8))'
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "text-5xl flame"
-  }, "🔥"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h2", {
-    className: "font-display text-xl font-bold text-coral mb-0.5"
-  }, "Ceremonia Focului"), /*#__PURE__*/React.createElement("p", {
-    className: "text-[.74rem] text-fog"
-  }, "Episodul ", curEp, " · Votează acum!"))), /*#__PURE__*/React.createElement("div", {
+    className: "rise"
+  }, /*#__PURE__*/React.createElement(PageHero, {
+    img: HERO_IMG.bonfire,
+    eyebrow: "MODUL 2 · LIVE",
+    accent: "ember",
+    title: /*#__PURE__*/React.createElement("span", {
+      className: "flex items-center gap-2"
+    }, "Bonfire Live ", /*#__PURE__*/React.createElement("span", {
+      className: "text-2xl flame"
+    }, "🔥"))
+  }), /*#__PURE__*/React.createElement("div", {
     className: "mb-4"
-  }, /*#__PURE__*/React.createElement("label", {
-    className: "block text-[.6rem] font-bold tracking-[.12em] uppercase text-fog mb-1.5"
-  }, "Episod"), /*#__PURE__*/React.createElement(EpisodePills, {
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "mono text-[.58rem] tracking-[.12em] text-mute2 mb-1.5"
+  }, "EPISOD"), /*#__PURE__*/React.createElement(EpisodePills, {
     curEp: curEp,
     onPick: setCurEp
-  })), loading ? /*#__PURE__*/React.createElement(Spinner, null) : /*#__PURE__*/React.createElement("div", {
-    className: "flex flex-col gap-2"
-  }, BFQ.map((q, i) => /*#__PURE__*/React.createElement("div", {
-    key: i,
-    className: "bg-surface/60 border border-teal/[.09] rounded-xl px-3.5 py-3 flex items-center gap-2.5"
+  })), loading ? /*#__PURE__*/React.createElement(Spinner, null) : /*#__PURE__*/React.createElement(React.Fragment, null, weekly && weekly.q && /*#__PURE__*/React.createElement("div", {
+    className: "bg-ember/[.1] border border-ember/30 rounded-2xl p-4 mb-4"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "flex-1 text-[.79rem] text-sand leading-snug"
-  }, q), /*#__PURE__*/React.createElement("div", {
-    className: "flex gap-1.5 shrink-0"
+    className: "mono text-[.58rem] tracking-[.12em] text-ember mb-1"
+  }, "🎟️ ÎNTREBAREA SĂPTĂMÂNII · PUNCTAJ DUBLU"), /*#__PURE__*/React.createElement("div", {
+    className: "text-[.88rem] font-medium text-paper mb-2.5"
+  }, weekly.q), /*#__PURE__*/React.createElement("div", {
+    className: "flex gap-2"
+  }, /*#__PURE__*/React.createElement("input", {
+    value: weeklyAns,
+    onChange: e => setWeeklyAns(e.target.value),
+    placeholder: "Răspunsul tău...",
+    className: "flex-1 bg-ink/70 border border-line rounded-lg px-3 py-2 text-[.8rem] text-paper outline-none focus:border-ember/60"
+  }), /*#__PURE__*/React.createElement("button", {
+    onClick: saveWeekly,
+    className: "tap bg-ember text-ink font-bold px-4 rounded-lg text-[.78rem]"
+  }, "OK"))), /*#__PURE__*/React.createElement("div", {
+    className: "mono text-[.58rem] tracking-[.12em] text-mute2 mb-2"
+  }, "⚖️ PARIURI PESTE / SUB · +5 PCT"), /*#__PURE__*/React.createElement("div", {
+    className: "flex flex-col gap-2 mb-5"
+  }, OVERUNDER.map(q => /*#__PURE__*/React.createElement("div", {
+    key: q.id,
+    className: "bg-ink2 border border-line rounded-xl px-3.5 py-3"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "text-[.79rem] text-paper mb-2"
+  }, q.t, " ", /*#__PURE__*/React.createElement("span", {
+    className: "text-mute2"
+  }, "(prag: ", q.line, ")")), /*#__PURE__*/React.createElement("div", {
+    className: "flex gap-1.5"
   }, /*#__PURE__*/React.createElement("button", {
-    onClick: () => vote(i, 'da'),
-    className: "tap px-3 py-2 rounded-lg text-[.72rem] font-bold border transition-colors " + (my[i] === 'da' ? 'bg-teal/20 border-teal text-teal' : 'bg-transparent border-teal/18 text-fog')
-  }, "✅ Da"), /*#__PURE__*/React.createElement("button", {
-    onClick: () => vote(i, 'nu'),
-    className: "tap px-3 py-2 rounded-lg text-[.72rem] font-bold border transition-colors " + (my[i] === 'nu' ? 'bg-coral/20 border-coral text-coral' : 'bg-transparent border-teal/18 text-fog')
-  }, "❌ Nu"))))));
+    onClick: () => voteOu(q.id, 'peste'),
+    className: "tap flex-1 py-2 rounded-lg text-[.74rem] font-bold border " + (ou[q.id] === 'peste' ? 'bg-lime/20 border-lime text-lime' : 'border-line text-mute')
+  }, "▲ Peste ", q.line), /*#__PURE__*/React.createElement("button", {
+    onClick: () => voteOu(q.id, 'sub'),
+    className: "tap flex-1 py-2 rounded-lg text-[.74rem] font-bold border " + (ou[q.id] === 'sub' ? 'bg-ember/20 border-ember text-ember' : 'border-line text-mute')
+  }, "▼ Sub ", q.line))))), /*#__PURE__*/React.createElement("div", {
+    className: "mono text-[.58rem] tracking-[.12em] text-mute2 mb-2"
+  }, "🔥 BONFIRE · +3 PCT FIECARE"), /*#__PURE__*/React.createElement("div", {
+    className: "flex flex-col gap-2"
+  }, BFQ.map((q, i) => {
+    const c = consensus[i];
+    const daPct = c && c.tot ? Math.round(c.da / c.tot * 100) : null;
+    return /*#__PURE__*/React.createElement("div", {
+      key: i,
+      className: "bg-ink2 border border-line rounded-xl px-3.5 py-3"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "flex items-center gap-2.5"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "flex-1 text-[.79rem] text-paper leading-snug"
+    }, q), /*#__PURE__*/React.createElement("div", {
+      className: "flex gap-1.5 shrink-0"
+    }, /*#__PURE__*/React.createElement("button", {
+      onClick: () => vote(i, 'da'),
+      className: "tap px-3 py-2 rounded-lg text-[.72rem] font-bold border " + (my[i] === 'da' ? 'bg-lime/20 border-lime text-lime' : 'border-line text-mute')
+    }, "✅"), /*#__PURE__*/React.createElement("button", {
+      onClick: () => vote(i, 'nu'),
+      className: "tap px-3 py-2 rounded-lg text-[.72rem] font-bold border " + (my[i] === 'nu' ? 'bg-ember/20 border-ember text-ember' : 'border-line text-mute')
+    }, "❌"))), my[i] && daPct !== null && c.tot > 1 && /*#__PURE__*/React.createElement("div", {
+      className: "mt-2 flex items-center gap-2"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "flex-1 h-1 rounded-full bg-line overflow-hidden"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "h-full bg-lime/60",
+      style: {
+        width: daPct + '%'
+      }
+    })), /*#__PURE__*/React.createElement("span", {
+      className: "mono text-[.58rem] text-mute2 shrink-0"
+    }, daPct, "% au zis DA (", c.tot, ")")));
+  }))));
 }
 function EpisodePills({
   curEp,
   onPick
 }) {
   return /*#__PURE__*/React.createElement("div", {
-    className: "flex gap-1.5 overflow-x-auto no-scrollbar pb-1"
+    className: "flex gap-1.5 overflow-x-auto no-sb pb-1"
   }, Array.from({
     length: 21
   }, (_, i) => i + 1).map(n => /*#__PURE__*/React.createElement("button", {
     key: n,
     onClick: () => onPick(n),
-    className: "tap shrink-0 px-3 py-1.5 rounded-full text-[.72rem] font-bold border transition-colors " + (n === curEp ? 'bg-coral/20 border-coral text-coral' : 'bg-transparent border-teal/15 text-fog')
-  }, n)));
+    className: "tap shrink-0 mono px-3 py-1.5 rounded-full text-[.72rem] font-medium border " + (n === curEp ? 'bg-ember/20 border-ember text-ember' : 'border-line text-mute2')
+  }, pad2(n))));
 }
 
 // ═══════════════════════════════════════════
@@ -786,6 +1033,7 @@ function Situatii({
   const [marked, setMarked] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
+    setLoading(true);
     db.collection('situations').doc(meId).get().then(s => {
       setMarked(s.exists ? s.data()['e' + curEp] || [] : []);
       setLoading(false);
@@ -818,62 +1066,108 @@ function Situatii({
     });
     toast('🔄 Card resetat');
   };
-  if (loading) return /*#__PURE__*/React.createElement(Spinner, null);
   return /*#__PURE__*/React.createElement("div", {
-    className: "slide-up"
+    className: "rise"
+  }, /*#__PURE__*/React.createElement(PageHero, {
+    img: HERO_IMG.situatii,
+    eyebrow: "MODUL 3 · LIVE",
+    title: "Cardul de Situații"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center justify-between bg-ink2 border border-line rounded-2xl px-4 py-3 mb-4"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "text-[.6rem] font-bold tracking-[.2em] uppercase text-teal mb-1.5"
-  }, "Modul 3 · În timp real"), /*#__PURE__*/React.createElement("h1", {
-    className: "font-display text-3xl font-black text-white leading-tight mb-1"
-  }, "Cardul ", /*#__PURE__*/React.createElement("span", {
-    className: "italic text-mango"
-  }, "de Situații")), /*#__PURE__*/React.createElement("p", {
-    className: "text-fog text-[.8rem] leading-relaxed mb-4"
-  }, "Bifează pe măsură ce le vezi. Salvate automat în cloud."), /*#__PURE__*/React.createElement("div", {
-    className: "flex items-center justify-between bg-surface/60 border border-teal/10 rounded-2xl px-4 py-3 mb-4"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "text-[.72rem] text-fog"
+    className: "text-[.72rem] text-mute"
   }, "Puncte episodul ", curEp), /*#__PURE__*/React.createElement("div", {
-    className: "flex items-baseline gap-1"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "font-display text-4xl font-black text-mango leading-none"
-  }, epPts), /*#__PURE__*/React.createElement("div", {
-    className: "text-[.7rem] text-fog"
-  }, "pct"))), /*#__PURE__*/React.createElement("div", {
+    className: "mono text-3xl font-medium text-lime leading-none"
+  }, epPts, /*#__PURE__*/React.createElement("span", {
+    className: "text-sm text-mute2"
+  }, " pct"))), loading ? /*#__PURE__*/React.createElement(Spinner, null) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     className: "grid grid-cols-2 gap-2 mb-4"
   }, SITS.map((s, i) => {
     const on = marked.includes(i);
-    const sc = s.s === 5 ? 'text-mango' : s.s === 3 ? 'text-teal/75' : s.s === 2 ? 'text-teal/50' : 'text-teal/30';
+    const sc = s.s === 5 ? 'text-lime' : s.s === 3 ? 'text-lime/70' : s.s === 2 ? 'text-lime/50' : 'text-lime/30';
     return /*#__PURE__*/React.createElement("button", {
       key: i,
       onClick: () => toggle(i),
-      className: "tap text-left rounded-xl px-3 py-3 border relative flex flex-col gap-1.5 " + (on ? 'bg-coral/[.12] border-coral/40' : 'bg-surface/65 border-teal/10')
+      className: "tap text-left rounded-xl px-3 py-3 border relative flex flex-col gap-1.5 " + (on ? 'bg-ember/[.12] border-ember/40' : 'bg-ink2 border-line')
     }, on && /*#__PURE__*/React.createElement("span", {
-      className: "absolute top-2 right-2.5 text-[.65rem] font-bold text-coral"
+      className: "absolute top-2 right-2.5 text-[.65rem] font-bold text-ember"
     }, "✓"), /*#__PURE__*/React.createElement("div", {
       className: "text-xl leading-none"
     }, s.e), /*#__PURE__*/React.createElement("div", {
-      className: "text-[.7rem] text-sand font-medium leading-snug pr-3"
+      className: "text-[.7rem] text-paper font-medium leading-snug pr-3"
     }, s.t), /*#__PURE__*/React.createElement("div", {
       className: "flex items-center justify-between mt-auto"
     }, /*#__PURE__*/React.createElement("span", {
-      className: "text-[.62rem] font-bold text-mango"
-    }, "+", s.p, " pct"), /*#__PURE__*/React.createElement("span", {
+      className: "mono text-[.6rem] font-medium text-lime"
+    }, "+", s.p), /*#__PURE__*/React.createElement("span", {
       className: "text-[.55rem] " + sc
     }, starStr(s.s))));
   })), /*#__PURE__*/React.createElement("div", {
     className: "flex gap-2"
   }, /*#__PURE__*/React.createElement("button", {
     onClick: save,
-    className: "tap flex-1 bg-coral text-white font-bold py-3 rounded-xl"
+    className: "tap flex-1 bg-lime text-ink font-bold py-3 rounded-xl"
   }, "Salvează în clasament"), /*#__PURE__*/React.createElement("button", {
     onClick: reset,
-    className: "tap bg-transparent border border-teal/15 text-fog font-bold px-4 py-3 rounded-xl"
-  }, "Reset")));
+    className: "tap bg-transparent border border-line text-mute font-bold px-4 py-3 rounded-xl"
+  }, "Reset"))));
 }
 
 // ═══════════════════════════════════════════
-// ADMIN AI
+// REGULAMENT + BADGES
+// ═══════════════════════════════════════════
+function Regulament() {
+  const rows = [['🔮', 'Predicții de Sezon', 'Pe cuplu (8 întrebări) + predicții globale cu miză mare. Punctele la final de sezon.', [['Răspuns exact', '+15'], ['Răspuns parțial', '+7'], ['Predicție globală', '+10…+20']]], ['🔥', 'Bonfire Live', '16 întrebări (serioase + meme reale) + pariuri Peste/Sub. Votezi înainte de scenă.', [['Răspuns Da/Nu corect', '+3'], ['Pariu Peste/Sub corect', '+5'], ['Întrebarea săptămânii', 'PUNCTAJ DUBLU']]], ['📋', 'Cardul de Situații', '20 situații cu 4 niveluri de raritate. Bifezi în timp real.', [['Comună ★', '+1'], ['Medie ★★', '+2'], ['Rară ★★★', '+3'], ['Legendară ★★★★★', '+5']]], ['🤖', 'Admin AI', 'Adminul lipește rezumatul → Claude detectează tot și actualizează toți jucătorii.', []]];
+  return /*#__PURE__*/React.createElement("div", {
+    className: "rise"
+  }, /*#__PURE__*/React.createElement(PageHero, {
+    img: HERO_IMG.regulament,
+    eyebrow: "CUM FUNCȚIONEAZĂ",
+    title: "Regulament"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "bg-ink2 border-l-[3px] border-lime rounded-r-lg px-4 py-3 text-[.78rem] text-mute leading-relaxed mb-4"
+  }, /*#__PURE__*/React.createElement("b", {
+    className: "text-paper"
+  }, "Insula Pariurilor"), " rulează cu Insula Iubirii S10 (20 iul – sept 2026). Episoade luni/marți/miercuri, Antena 1. Clasament live prin Firebase."), /*#__PURE__*/React.createElement("div", {
+    className: "bg-ink2 border border-line rounded-2xl p-4 mb-4"
+  }, rows.map(([ic, t, d, pts], ri) => /*#__PURE__*/React.createElement("div", {
+    key: ri,
+    className: "flex gap-3.5 py-4 border-b border-white/[.05] last:border-0 items-start"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "text-2xl shrink-0 mt-0.5"
+  }, ic), /*#__PURE__*/React.createElement("div", {
+    className: "flex-1"
+  }, /*#__PURE__*/React.createElement("h4", {
+    className: "text-[.85rem] font-bold text-paper mb-1"
+  }, t), /*#__PURE__*/React.createElement("p", {
+    className: "text-[.74rem] text-mute leading-relaxed"
+  }, d), pts.length > 0 && /*#__PURE__*/React.createElement("div", {
+    className: "flex flex-col gap-1 mt-2"
+  }, pts.map(([l, v], i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    className: "flex justify-between items-center text-[.73rem] py-1 border-b border-white/[.04] last:border-0"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "text-mute2"
+  }, l), /*#__PURE__*/React.createElement("span", {
+    className: "mono text-lime font-medium shrink-0 ml-2"
+  }, v)))))))), /*#__PURE__*/React.createElement("div", {
+    className: "mono text-[.58rem] tracking-[.13em] text-mute2 mb-2.5"
+  }, "🏅 BADGE-URI DE COLECȚIONAT"), /*#__PURE__*/React.createElement("div", {
+    className: "grid grid-cols-2 gap-2"
+  }, BADGES.map(b => /*#__PURE__*/React.createElement("div", {
+    key: b.id,
+    className: "bg-ink2 border border-line rounded-xl p-3"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "text-xl mb-1"
+  }, b.e), /*#__PURE__*/React.createElement("div", {
+    className: "text-[.76rem] font-bold text-paper"
+  }, b.t), /*#__PURE__*/React.createElement("div", {
+    className: "text-[.63rem] text-mute2 leading-snug mt-0.5"
+  }, b.d)))));
+}
+
+// ═══════════════════════════════════════════
+// ADMIN (AI + întrebarea săptămânii + trash-talk + cupluri)
 // ═══════════════════════════════════════════
 function Admin({
   isAdmin,
@@ -897,8 +1191,13 @@ function Admin({
   const [he, setHe] = useState('');
   const [she, setShe] = useState('');
   const [desc, setDesc] = useState('');
+  const [weeklyQ, setWeeklyQ] = useState('');
+  const [sticky, setSticky] = useState('');
   useEffect(() => {
-    if (isAdmin) loadHist();
+    if (isAdmin) {
+      loadHist();
+      loadCfg();
+    }
   }, [isAdmin]);
   const loadHist = async () => {
     const snap = await db.collection('episodes').get();
@@ -906,6 +1205,12 @@ function Admin({
     snap.forEach(d => eps.push(d.data()));
     eps.sort((a, b) => b.ep - a.ep);
     setHist(eps);
+  };
+  const loadCfg = async () => {
+    const w = await db.collection('config').doc('weekly').get();
+    if (w.exists) setWeeklyQ(w.data().q || '');
+    const s = await db.collection('config').doc('sticky').get();
+    if (s.exists) setSticky(s.data().msg || '');
   };
   const auth = () => {
     if (pass !== ADMIN_PWD) {
@@ -937,7 +1242,23 @@ function Admin({
     setHe('');
     setShe('');
     setDesc('');
-    toast('✓ Cuplu adăugat și sincronizat!');
+    toast('✓ Cuplu adăugat!');
+  };
+  const saveWeekly = async () => {
+    await db.collection('config').doc('weekly').set({
+      q: weeklyQ
+    }, {
+      merge: true
+    });
+    toast('🎟️ Întrebarea săptămânii publicată!');
+  };
+  const saveSticky = async () => {
+    await db.collection('config').doc('sticky').set({
+      msg: sticky
+    }, {
+      merge: true
+    });
+    toast('📌 Mesaj fixat pe homepage!');
   };
   const runAI = async () => {
     if (text.trim().length < 25) {
@@ -953,19 +1274,15 @@ function Admin({
     const prompt = `Ești asistentul aplicației "Insula Pariurilor" pentru Insula Iubirii Sezonul 10.
 Cupluri: ${cStr}.
 Analizează textul (${src}, Episodul ${ep}) și returnează DOAR JSON valid fără backticks.
-
 SITUAȚII: ${sitList}
 BONFIRE: ${bfList}
-
 TEXT:
 """
 ${text.slice(0, 5500)}
 """
-
 Returnează EXACT:
-{"situatii":[0,3,7],"bonfire":{"0":"da","1":"nu","2":"?","3":"da","4":"nu","5":"nu","6":"nu","7":"nu","8":"da","9":"nu","10":"nu","11":"nu"},"sumar":"2-3 propoziții energice în română","ep":${ep}}
-
-REGULI: situatii=indici 0-based care apar CLAR în text. bonfire=da/nu/? pentru fiecare din cele 12 întrebări. DOAR JSON.`;
+{"situatii":[0,3,7],"bonfire":{"0":"da","1":"nu"},"sumar":"2-3 propoziții energice în română","ep":${ep}}
+REGULI: situatii=indici 0-based care apar CLAR. bonfire=da/nu/? pentru fiecare din ${BFQ.length} întrebări. DOAR JSON.`;
     try {
       setProcMsg('Claude procesează...');
       const r = await fetch('https://api.anthropic.com/v1/messages', {
@@ -975,7 +1292,7 @@ REGULI: situatii=indici 0-based care apar CLAR în text. bonfire=da/nu/? pentru 
         },
         body: JSON.stringify({
           model: 'claude-sonnet-4-6',
-          max_tokens: 800,
+          max_tokens: 900,
           messages: [{
             role: 'user',
             content: prompt
@@ -1029,19 +1346,15 @@ REGULI: situatii=indici 0-based care apar CLAR în text. bonfire=da/nu/? pentru 
   };
   if (!isAdmin) {
     return /*#__PURE__*/React.createElement("div", {
-      className: "slide-up"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "text-[.6rem] font-bold tracking-[.2em] uppercase text-teal mb-1.5"
-    }, "Automatizare · Claude AI"), /*#__PURE__*/React.createElement("h1", {
-      className: "font-display text-3xl font-black text-white leading-tight mb-1"
-    }, "Admin ", /*#__PURE__*/React.createElement("span", {
-      className: "italic text-mango"
-    }, "AI")), /*#__PURE__*/React.createElement("p", {
-      className: "text-fog text-[.8rem] leading-relaxed mb-5"
-    }, "Procesezi episodul — toți jucătorii sunt actualizați instantaneu."), /*#__PURE__*/React.createElement("div", {
-      className: "bg-surface/65 border border-teal/10 rounded-2xl p-5"
+      className: "rise"
+    }, /*#__PURE__*/React.createElement(PageHero, {
+      img: HERO_IMG.admin,
+      eyebrow: "ADMIN · CLAUDE AI",
+      title: "Admin AI"
+    }), /*#__PURE__*/React.createElement("div", {
+      className: "bg-ink2 border border-line rounded-2xl p-5"
     }, /*#__PURE__*/React.createElement("label", {
-      className: "block text-[.6rem] font-bold tracking-[.12em] uppercase text-fog mb-1.5"
+      className: "block mono text-[.58rem] tracking-[.12em] text-mute2 mb-1.5 uppercase"
     }, "Parolă admin"), /*#__PURE__*/React.createElement("input", {
       value: pass,
       onChange: e => setPass(e.target.value),
@@ -1050,100 +1363,74 @@ REGULI: situatii=indici 0-based care apar CLAR în text. bonfire=da/nu/? pentru 
       onKeyDown: e => {
         if (e.key === 'Enter') auth();
       },
-      className: "w-full bg-night/80 border border-teal/20 rounded-lg px-3.5 py-3 text-[.9rem] text-sand outline-none focus:border-teal mb-3"
+      className: "w-full bg-ink/70 border border-line rounded-lg px-3.5 py-3 text-[.9rem] text-paper outline-none focus:border-lime/60 mb-3"
     }), /*#__PURE__*/React.createElement("button", {
       onClick: auth,
-      className: "tap w-full bg-mango/90 text-night font-bold py-3 rounded-lg"
+      className: "tap w-full bg-lime text-ink font-bold py-3 rounded-lg"
     }, "🔑 Intră ca admin")));
   }
   return /*#__PURE__*/React.createElement("div", {
-    className: "slide-up"
+    className: "rise"
+  }, /*#__PURE__*/React.createElement(PageHero, {
+    img: HERO_IMG.admin,
+    eyebrow: "ADMIN · CLAUDE AI + FIREBASE",
+    title: "Admin AI"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "bg-ink2 border border-line rounded-2xl p-4 mb-4"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "text-[.6rem] font-bold tracking-[.2em] uppercase text-teal mb-1.5"
-  }, "Automatizare · Claude AI + Firebase"), /*#__PURE__*/React.createElement("h1", {
-    className: "font-display text-3xl font-black text-white leading-tight mb-1"
-  }, "Admin ", /*#__PURE__*/React.createElement("span", {
-    className: "italic text-mango"
-  }, "AI")), /*#__PURE__*/React.createElement("p", {
-    className: "text-fog text-[.8rem] leading-relaxed mb-4"
-  }, "Lipești textul → Claude analizează → toți jucătorii actualizați simultan."), /*#__PURE__*/React.createElement("div", {
-    className: "rounded-2xl border border-mango/17 p-4 flex items-center gap-3 mb-4",
-    style: {
-      background: 'linear-gradient(135deg,rgba(242,190,74,.07),rgba(12,27,46,.75))'
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "text-3xl"
-  }, "🤖"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h2", {
-    className: "font-display text-base font-bold text-mango"
-  }, "Procesare automată episod"), /*#__PURE__*/React.createElement("p", {
-    className: "text-[.72rem] text-fog leading-snug"
-  }, "veziaici.net sau transcript YouTube → toți jucătorii actualizați"))), /*#__PURE__*/React.createElement("div", {
-    className: "flex flex-col gap-2 mb-4"
-  }, [['1', 'Obții textul', 'veziaici.net după episod, sau transcript de pe youtube-transcript.io'], ['2', 'Selectezi episodul și lipești', 'Orice text merge — rezumat, transcript sau notițe'], ['3', 'Claude procesează → Firebase', 'Toți văd clasamentul nou instantaneu']].map(([n, t, d]) => /*#__PURE__*/React.createElement("div", {
-    key: n,
-    className: "flex items-start gap-3 bg-surface/50 border border-teal/10 rounded-xl px-3.5 py-3"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "w-5 h-5 rounded-full bg-mango/12 border border-mango/26 flex items-center justify-center text-[.6rem] font-bold text-mango shrink-0 mt-0.5"
-  }, n), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-    className: "text-[.78rem] font-semibold text-sand"
-  }, t), /*#__PURE__*/React.createElement("div", {
-    className: "text-[.7rem] text-fog leading-snug"
-  }, d))))), /*#__PURE__*/React.createElement("div", {
-    className: "bg-surface/65 border border-teal/10 rounded-2xl p-4 mb-4"
-  }, /*#__PURE__*/React.createElement("div", {
+    className: "mono text-[.58rem] tracking-[.13em] text-lime mb-3"
+  }, "🤖 PROCESARE EPISOD"), /*#__PURE__*/React.createElement("div", {
     className: "flex gap-2 mb-3"
   }, /*#__PURE__*/React.createElement("div", {
     className: "flex-1"
   }, /*#__PURE__*/React.createElement("label", {
-    className: "block text-[.6rem] font-bold tracking-[.12em] uppercase text-fog mb-1.5"
+    className: "block mono text-[.55rem] tracking-[.1em] text-mute2 mb-1.5 uppercase"
   }, "Episod"), /*#__PURE__*/React.createElement("select", {
     value: ep,
     onChange: e => setEp(parseInt(e.target.value)),
-    className: "w-full bg-night/75 border border-teal/15 rounded-lg px-3 py-2.5 text-[.8rem] text-sand outline-none"
+    className: "w-full bg-ink/75 border border-line rounded-lg px-3 py-2.5 text-[.8rem] text-paper outline-none"
   }, Array.from({
     length: 21
   }, (_, i) => i + 1).map(n => /*#__PURE__*/React.createElement("option", {
     key: n,
     value: n
-  }, "Episod ", n)))), /*#__PURE__*/React.createElement("div", {
+  }, "Ep ", n)))), /*#__PURE__*/React.createElement("div", {
     className: "flex-1"
   }, /*#__PURE__*/React.createElement("label", {
-    className: "block text-[.6rem] font-bold tracking-[.12em] uppercase text-fog mb-1.5"
-  }, "Tip sursă"), /*#__PURE__*/React.createElement("select", {
+    className: "block mono text-[.55rem] tracking-[.1em] text-mute2 mb-1.5 uppercase"
+  }, "Sursă"), /*#__PURE__*/React.createElement("select", {
     value: src,
     onChange: e => setSrc(e.target.value),
-    className: "w-full bg-night/75 border border-teal/15 rounded-lg px-3 py-2.5 text-[.8rem] text-sand outline-none"
+    className: "w-full bg-ink/75 border border-line rounded-lg px-3 py-2.5 text-[.8rem] text-paper outline-none"
   }, /*#__PURE__*/React.createElement("option", {
     value: "rezumat"
   }, "Rezumat"), /*#__PURE__*/React.createElement("option", {
     value: "transcript"
   }, "Transcript YT"), /*#__PURE__*/React.createElement("option", {
     value: "notite"
-  }, "Notițe")))), /*#__PURE__*/React.createElement("label", {
-    className: "block text-[.6rem] font-bold tracking-[.12em] uppercase text-fog mb-1.5"
-  }, "Text episod"), /*#__PURE__*/React.createElement("textarea", {
+  }, "Notițe")))), /*#__PURE__*/React.createElement("textarea", {
     value: text,
     onChange: e => setText(e.target.value),
-    rows: 6,
-    placeholder: "Lipește rezumatul sau transcriptul episodului...",
-    className: "w-full bg-night/80 border border-teal/18 rounded-xl px-3.5 py-3 text-[.8rem] text-sand leading-relaxed outline-none focus:border-teal resize-y mb-3"
+    rows: 5,
+    placeholder: "Lipește rezumatul de pe veziaici.net sau transcriptul YouTube...",
+    className: "w-full bg-ink/80 border border-line rounded-xl px-3.5 py-3 text-[.8rem] text-paper leading-relaxed outline-none focus:border-lime/60 resize-y mb-3"
   }), /*#__PURE__*/React.createElement("div", {
     className: "flex gap-2"
   }, /*#__PURE__*/React.createElement("button", {
     onClick: runAI,
-    className: "tap flex-1 bg-mango/90 text-night font-bold py-3 rounded-lg"
+    className: "tap flex-1 bg-lime text-ink font-bold py-3 rounded-lg"
   }, "🤖 Procesează cu Claude AI"), /*#__PURE__*/React.createElement("button", {
     onClick: () => {
       setText('');
       setResult(null);
     },
-    className: "tap bg-transparent border border-teal/15 text-fog font-bold px-4 py-3 rounded-lg"
+    className: "tap bg-transparent border border-line text-mute font-bold px-4 py-3 rounded-lg"
   }, "Șterge"))), proc && /*#__PURE__*/React.createElement("div", {
-    className: "bg-surface/70 border border-teal/15 rounded-2xl p-6 text-center mb-4"
+    className: "bg-ink2 border border-line rounded-2xl p-6 text-center mb-4"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "w-11 h-11 rounded-full bg-teal/12 border-2 border-teal flex items-center justify-center text-xl mx-auto mb-3 ai-pulse"
+    className: "w-11 h-11 rounded-full bg-lime/12 border-2 border-lime flex items-center justify-center text-xl mx-auto mb-3 pulse-lime"
   }, "🤖"), /*#__PURE__*/React.createElement("div", {
-    className: "text-[.82rem] text-fog"
+    className: "text-[.82rem] text-mute"
   }, procMsg)), result && /*#__PURE__*/React.createElement(AdminResult, {
     result: result,
     ep: ep,
@@ -1151,29 +1438,53 @@ REGULI: situatii=indici 0-based care apar CLAR în text. bonfire=da/nu/? pentru 
     onApply: apply,
     onCancel: () => setResult(null)
   }), hist.length > 0 && /*#__PURE__*/React.createElement("div", {
-    className: "mt-4"
+    className: "mb-5"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "text-[.6rem] font-bold tracking-[.13em] uppercase text-teal mb-2.5"
-  }, "Istoric episoade procesate"), hist.slice(0, 10).map((x, i) => /*#__PURE__*/React.createElement("div", {
+    className: "mono text-[.58rem] tracking-[.13em] text-lime mb-2.5"
+  }, "ISTORIC EPISOADE"), hist.slice(0, 8).map((x, i) => /*#__PURE__*/React.createElement("div", {
     key: i,
-    className: "flex items-center gap-2.5 py-2.5 border-b border-teal/[.06] text-[.73rem] text-fog"
+    className: "flex items-center gap-2.5 py-2.5 border-b border-white/[.05] text-[.73rem] text-mute"
   }, /*#__PURE__*/React.createElement("span", {
-    className: "text-mango font-bold shrink-0 min-w-[42px]"
-  }, "Ep.", x.ep), /*#__PURE__*/React.createElement("span", {
+    className: "mono text-lime font-medium shrink-0 min-w-[40px]"
+  }, "EP.", x.ep), /*#__PURE__*/React.createElement("span", {
     className: "flex-1 truncate"
-  }, (x.sumar || '—').slice(0, 80)), /*#__PURE__*/React.createElement("span", {
-    className: "text-teal font-semibold shrink-0"
+  }, (x.sumar || '—').slice(0, 70)), /*#__PURE__*/React.createElement("span", {
+    className: "mono text-mute2 shrink-0"
   }, "+", (x.sitPts || 0) + (x.bfPts || 0), "p")))), /*#__PURE__*/React.createElement("div", {
-    className: "bg-surface/65 border border-teal/10 rounded-2xl p-4 mt-5"
+    className: "bg-ink2 border border-ember/20 rounded-2xl p-4 mb-4"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "text-[.63rem] font-bold tracking-[.14em] uppercase text-teal mb-3"
-  }, "Configurare cupluri"), couples.map(c => /*#__PURE__*/React.createElement("div", {
+    className: "mono text-[.58rem] tracking-[.13em] text-ember mb-2.5"
+  }, "🎟️ ÎNTREBAREA SĂPTĂMÂNII (PUNCTAJ DUBLU)"), /*#__PURE__*/React.createElement("input", {
+    value: weeklyQ,
+    onChange: e => setWeeklyQ(e.target.value),
+    placeholder: "Ex: Cine pleacă acasă vineri?",
+    className: "w-full bg-ink/75 border border-line rounded-lg px-3 py-2.5 text-[.8rem] text-paper outline-none mb-2"
+  }), /*#__PURE__*/React.createElement("button", {
+    onClick: saveWeekly,
+    className: "tap w-full bg-ember/90 text-ink font-bold py-2.5 rounded-lg text-[.78rem]"
+  }, "Publică întrebarea")), /*#__PURE__*/React.createElement("div", {
+    className: "bg-ink2 border border-line rounded-2xl p-4 mb-4"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "mono text-[.58rem] tracking-[.13em] text-lime mb-2.5"
+  }, "📌 TRASH-TALK / MESAJ FIXAT"), /*#__PURE__*/React.createElement("input", {
+    value: sticky,
+    onChange: e => setSticky(e.target.value),
+    placeholder: "Ex: Mihai, ești pe wooden spoon 😂",
+    className: "w-full bg-ink/75 border border-line rounded-lg px-3 py-2.5 text-[.8rem] text-paper outline-none mb-2"
+  }), /*#__PURE__*/React.createElement("button", {
+    onClick: saveSticky,
+    className: "tap w-full bg-transparent border border-lime/40 text-lime font-bold py-2.5 rounded-lg text-[.78rem]"
+  }, "Fixează pe homepage")), /*#__PURE__*/React.createElement("div", {
+    className: "bg-ink2 border border-line rounded-2xl p-4"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "mono text-[.58rem] tracking-[.13em] text-lime mb-2.5"
+  }, "🌺 CUPLURILE SEZONULUI"), couples.map(c => /*#__PURE__*/React.createElement("div", {
     key: c.id,
-    className: "flex items-center gap-2.5 py-2 border-b border-teal/[.06] last:border-0"
+    className: "flex items-center gap-2.5 py-2 border-b border-white/[.04] last:border-0"
   }, /*#__PURE__*/React.createElement("span", {
     className: "text-lg"
   }, c.emoji), /*#__PURE__*/React.createElement("div", {
-    className: "text-[.8rem] font-semibold text-sand"
+    className: "text-[.8rem] font-medium text-paper"
   }, c.he, " & ", c.she))), /*#__PURE__*/React.createElement("div", {
     className: "flex flex-col gap-2 mt-3"
   }, /*#__PURE__*/React.createElement("div", {
@@ -1182,20 +1493,20 @@ REGULI: situatii=indici 0-based care apar CLAR în text. bonfire=da/nu/? pentru 
     value: he,
     onChange: e => setHe(e.target.value),
     placeholder: "El",
-    className: "flex-1 bg-night/75 border border-teal/15 rounded-lg px-3 py-2 text-[.78rem] text-sand outline-none"
+    className: "flex-1 bg-ink/75 border border-line rounded-lg px-3 py-2 text-[.78rem] text-paper outline-none"
   }), /*#__PURE__*/React.createElement("input", {
     value: she,
     onChange: e => setShe(e.target.value),
     placeholder: "Ea",
-    className: "flex-1 bg-night/75 border border-teal/15 rounded-lg px-3 py-2 text-[.78rem] text-sand outline-none"
+    className: "flex-1 bg-ink/75 border border-line rounded-lg px-3 py-2 text-[.78rem] text-paper outline-none"
   })), /*#__PURE__*/React.createElement("input", {
     value: desc,
     onChange: e => setDesc(e.target.value),
     placeholder: "Descriere (ex: 3 ani împreună)",
-    className: "bg-night/75 border border-teal/15 rounded-lg px-3 py-2 text-[.78rem] text-sand outline-none"
+    className: "bg-ink/75 border border-line rounded-lg px-3 py-2 text-[.78rem] text-paper outline-none"
   }), /*#__PURE__*/React.createElement("button", {
     onClick: addCouple,
-    className: "tap bg-transparent border border-teal/36 text-teal font-bold py-2.5 rounded-lg text-[.78rem]"
+    className: "tap bg-transparent border border-lime/40 text-lime font-bold py-2.5 rounded-lg text-[.78rem]"
   }, "+ Adaugă cuplu"))));
 }
 function AdminResult({
@@ -1210,122 +1521,72 @@ function AdminResult({
   const sp = found.reduce((s, i) => s + (SITS[i]?.p || 0), 0);
   const by = Object.values(bf).filter(v => v === 'da').length;
   return /*#__PURE__*/React.createElement("div", {
-    className: "border border-teal/15 rounded-2xl overflow-hidden mb-4 slide-up"
+    className: "border border-line rounded-2xl overflow-hidden mb-4 rise"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "px-4 py-3 flex items-center justify-between border-b border-teal/[.08]",
-    style: {
-      background: 'rgba(15,61,46,.26)'
-    }
+    className: "px-4 py-3 flex items-center justify-between border-b border-white/[.06] bg-ink3"
   }, /*#__PURE__*/React.createElement("span", {
-    className: "text-[.63rem] font-bold tracking-[.14em] uppercase text-teal"
-  }, "Rezultate Claude AI"), /*#__PURE__*/React.createElement("span", {
-    className: "text-[.7rem] text-fog"
-  }, "Episodul ", ep)), /*#__PURE__*/React.createElement("div", {
+    className: "mono text-[.6rem] tracking-[.14em] text-lime"
+  }, "REZULTATE CLAUDE AI"), /*#__PURE__*/React.createElement("span", {
+    className: "mono text-[.7rem] text-mute2"
+  }, "EP.", ep)), /*#__PURE__*/React.createElement("div", {
     className: "p-4"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "text-[.62rem] font-bold tracking-[.13em] uppercase text-fog mb-2"
-  }, "📋 Situații detectate"), /*#__PURE__*/React.createElement("div", {
+    className: "mono text-[.58rem] tracking-[.13em] text-mute2 mb-2"
+  }, "📋 SITUAȚII"), /*#__PURE__*/React.createElement("div", {
     className: "flex flex-col gap-1 mb-4"
   }, SITS.map((s, i) => {
     const hit = found.includes(i);
     return /*#__PURE__*/React.createElement("div", {
       key: i,
-      className: "flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-[.74rem] " + (hit ? 'bg-teal/10 text-sand' : 'opacity-35 text-fog')
+      className: "flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-[.74rem] " + (hit ? 'bg-lime/10 text-paper' : 'opacity-35 text-mute')
     }, /*#__PURE__*/React.createElement("span", {
       className: "w-4 text-center shrink-0"
     }, hit ? '✅' : '·'), /*#__PURE__*/React.createElement("span", {
       className: "flex-1"
     }, s.e, " ", s.t), hit && /*#__PURE__*/React.createElement("span", {
-      className: "text-[.66rem] font-bold text-mango shrink-0"
-    }, "+", s.p, "p"));
+      className: "mono text-[.66rem] font-medium text-lime shrink-0"
+    }, "+", s.p));
   })), /*#__PURE__*/React.createElement("div", {
-    className: "text-[.62rem] font-bold tracking-[.13em] uppercase text-fog mb-2"
-  }, "🔥 Răspunsuri bonfire"), /*#__PURE__*/React.createElement("div", {
+    className: "mono text-[.58rem] tracking-[.13em] text-mute2 mb-2"
+  }, "🔥 BONFIRE"), /*#__PURE__*/React.createElement("div", {
     className: "flex flex-col gap-1 mb-4"
   }, BFQ.map((q, i) => {
     const a = bf[i] || bf[String(i)] || '?';
-    const cls = a === 'da' ? 'bg-teal/10 text-sand' : a === 'nu' ? 'bg-coral/[.07] text-fog' : 'opacity-35 text-fog';
+    const cls = a === 'da' ? 'bg-lime/10 text-paper' : a === 'nu' ? 'bg-ember/[.07] text-mute' : 'opacity-35 text-mute';
     const ic = a === 'da' ? '✅' : a === 'nu' ? '❌' : '❓';
     return /*#__PURE__*/React.createElement("div", {
       key: i,
-      className: "flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-[.73rem] " + cls
+      className: "flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-[.72rem] " + cls
     }, /*#__PURE__*/React.createElement("span", {
       className: "w-4 text-center shrink-0"
     }, ic), /*#__PURE__*/React.createElement("span", {
       className: "flex-1"
     }, q), a === 'da' && /*#__PURE__*/React.createElement("span", {
-      className: "text-[.66rem] font-bold text-mango shrink-0"
-    }, "+3p"));
+      className: "mono text-[.66rem] font-medium text-lime shrink-0"
+    }, "+3"));
   })), /*#__PURE__*/React.createElement("div", {
-    className: "text-[.62rem] font-bold tracking-[.13em] uppercase text-fog mb-2"
-  }, "💬 Sumar AI"), /*#__PURE__*/React.createElement("div", {
-    className: "bg-mango/[.05] border border-mango/13 rounded-lg px-3.5 py-3 text-[.76rem] text-sand leading-relaxed"
+    className: "mono text-[.58rem] tracking-[.13em] text-mute2 mb-2"
+  }, "💬 SUMAR"), /*#__PURE__*/React.createElement("div", {
+    className: "bg-lime/[.05] border border-lime/13 rounded-lg px-3.5 py-3 text-[.76rem] text-paper leading-relaxed"
   }, result.sumar || '—')), /*#__PURE__*/React.createElement("div", {
-    className: "px-4 py-3.5 border-t border-teal/[.08] flex flex-col gap-2.5",
-    style: {
-      background: 'rgba(7,17,31,.5)'
-    }
+    className: "px-4 py-3.5 border-t border-white/[.06] flex flex-col gap-2.5 bg-ink/40"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "text-[.73rem] text-fog"
+    className: "text-[.73rem] text-mute"
   }, "Situații: ", /*#__PURE__*/React.createElement("b", {
-    className: "text-mango"
+    className: "text-lime"
   }, sp), " pct · Bonfire: ", /*#__PURE__*/React.createElement("b", {
-    className: "text-mango"
+    className: "text-lime"
   }, by), " Da · ", /*#__PURE__*/React.createElement("b", {
-    className: "text-mango"
+    className: "text-lime"
   }, playerCount), " jucători"), /*#__PURE__*/React.createElement("div", {
     className: "flex gap-2"
   }, /*#__PURE__*/React.createElement("button", {
     onClick: onApply,
-    className: "tap flex-1 bg-coral text-white font-bold py-3 rounded-lg text-[.8rem]"
+    className: "tap flex-1 bg-lime text-ink font-bold py-3 rounded-lg text-[.8rem]"
   }, "✅ Aplică pentru toți"), /*#__PURE__*/React.createElement("button", {
     onClick: onCancel,
-    className: "tap bg-transparent border border-teal/15 text-fog font-bold px-4 py-3 rounded-lg text-[.78rem]"
+    className: "tap bg-transparent border border-line text-mute font-bold px-4 py-3 rounded-lg text-[.78rem]"
   }, "✕"))));
-}
-
-// ═══════════════════════════════════════════
-// REGULAMENT
-// ═══════════════════════════════════════════
-function Regulament() {
-  const rows = [['🔮', 'Modul 1 — Predicții de Sezon', 'Completezi înainte de premieră. Punctele se acordă la final de sezon.', [['Răspuns exact (final, ispită, separare)', '+15'], ['Răspuns parțial (cade / nu cade)', '+7'], ['Nivel dramă ghicit', '+7'], ['Sărut cu ispita ghicit', '+10'], ['Bonus — 3/3 corecte la un cuplu', '+10'], ['Bonus — toți greșesc, tu ghicești', '+20']]], ['🔥', 'Modul 2 — Bonfire Live', '12 întrebări per episod. Votezi Da/Nu, salvate automat per jucător.', [['Răspuns corect Da/Nu', '+3'], ['Episod perfect (12/12)', '+5'], ['3 episoade consecutive perfecte', '+15']]], ['📋', 'Modul 3 — Cardul de Situații', '20 situații cu 4 niveluri. Bifezi în timp real, salvezi la final de episod.', [['Situație comună ★', '+1'], ['Situație medie ★★', '+2'], ['Situație rară ★★★', '+3'], ['Situație legendară ★★★★★', '+5']]], ['🤖', 'Modul 4 — Admin AI', 'Adminul lipește rezumatul. Claude detectează situațiile și bonfire și actualizează toți jucătorii simultan.', []], ['🏆', 'Titluri de final', '', [['👑 Radu Vâlcan — cel mai bun total', ''], ['🔥 Bonfire King/Queen', ''], ['📋 Observatorul', ''], ['🎯 Oracle — predicții', ''], ['😂 Ispita Ratată — ultimul', '']]]];
-  return /*#__PURE__*/React.createElement("div", {
-    className: "slide-up"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "text-[.6rem] font-bold tracking-[.2em] uppercase text-teal mb-1.5"
-  }, "Cum funcționează"), /*#__PURE__*/React.createElement("h1", {
-    className: "font-display text-3xl font-black text-white leading-tight mb-1"
-  }, "Regulamentul ", /*#__PURE__*/React.createElement("span", {
-    className: "italic text-mango"
-  }, "complet")), /*#__PURE__*/React.createElement("p", {
-    className: "text-fog text-[.8rem] leading-relaxed mb-4"
-  }, "Trei module, un clasament live, șapte săptămâni de banter."), /*#__PURE__*/React.createElement("div", {
-    className: "bg-jungle/20 border-l-[3px] border-teal rounded-r-lg px-4 py-3 text-[.78rem] text-fog leading-relaxed mb-4"
-  }, /*#__PURE__*/React.createElement("b", {
-    className: "text-sand"
-  }, "Insula Pariurilor"), " rulează în paralel cu Insula Iubirii Sezonul 10 (20 iulie – septembrie 2026). Episoade luni, marți, miercuri pe Antena 1. Clasamentul e sincronizat prin Firebase — orice schimbare apare instant la toți."), /*#__PURE__*/React.createElement("div", {
-    className: "bg-surface/65 border border-teal/10 rounded-2xl p-4"
-  }, rows.map(([ic, title, desc, pts], ri) => /*#__PURE__*/React.createElement("div", {
-    key: ri,
-    className: "flex gap-3.5 py-4 border-b border-teal/[.07] last:border-0 items-start"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "text-2xl shrink-0 mt-0.5"
-  }, ic), /*#__PURE__*/React.createElement("div", {
-    className: "flex-1"
-  }, /*#__PURE__*/React.createElement("h4", {
-    className: "text-[.84rem] font-bold text-sand mb-1"
-  }, title), desc && /*#__PURE__*/React.createElement("p", {
-    className: "text-[.74rem] text-fog leading-relaxed"
-  }, desc), pts.length > 0 && /*#__PURE__*/React.createElement("div", {
-    className: "flex flex-col gap-1 mt-2"
-  }, pts.map(([l, v], i) => /*#__PURE__*/React.createElement("div", {
-    key: i,
-    className: "flex justify-between items-center text-[.73rem] py-1 border-b border-teal/[.06] last:border-0"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "text-fog"
-  }, l), v && /*#__PURE__*/React.createElement("span", {
-    className: "text-mango font-bold shrink-0 ml-2"
-  }, v, " pct")))))))));
 }
 
 // ═══════════════════════════════════════════
@@ -1335,19 +1596,19 @@ function BottomNav({
   tab,
   setTab
 }) {
-  const items = [['clasament', '🏆', 'Top'], ['predictii', '🔮', 'Predicții'], ['bonfire', '🔥', 'Bonfire'], ['situatii', '📋', 'Situații'], ['admin', '🤖', 'Admin']];
+  const items = [['clasament', '🏆', 'Top'], ['predictii', '🔮', 'Predicții'], ['bonfire', '🔥', 'Bonfire'], ['situatii', '📋', 'Situații'], ['premii', '💰', 'Premii'], ['admin', '🤖', 'Admin']];
   return /*#__PURE__*/React.createElement("div", {
-    className: "fixed bottom-0 left-0 right-0 z-50 bg-surface/95 border-t border-teal/10 backdrop-blur-xl safe-bottom"
+    className: "fixed bottom-0 left-0 right-0 z-50 bg-ink2/95 border-t border-line backdrop-blur-xl safe-b"
   }, /*#__PURE__*/React.createElement("div", {
     className: "flex justify-around max-w-[600px] mx-auto px-1 py-1.5"
   }, items.map(([id, ic, lb]) => /*#__PURE__*/React.createElement("button", {
     key: id,
     onClick: () => setTab(id),
-    className: "tap flex flex-col items-center gap-0.5 px-2 py-1.5 flex-1 " + (tab === id ? 'text-teal' : 'text-fog')
+    className: "tap flex flex-col items-center gap-0.5 px-1.5 py-1.5 flex-1 " + (tab === id ? 'text-lime' : 'text-mute2')
   }, /*#__PURE__*/React.createElement("span", {
     className: "text-lg leading-none"
   }, ic), /*#__PURE__*/React.createElement("span", {
-    className: "text-[.52rem] font-bold tracking-wide uppercase"
+    className: "mono text-[.5rem] tracking-wide uppercase"
   }, lb)))));
 }
 
@@ -1355,13 +1616,14 @@ function BottomNav({
 // MAIN APP
 // ═══════════════════════════════════════════
 function App() {
-  const [screen, setScreen] = useState('loading'); // loading | hero | login | register | app
+  const [screen, setScreen] = useState('loading');
   const [me, setMe] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [players, setPlayers] = useState({});
   const [couples, setCouples] = useState([]);
   const [curEp, setCurEp] = useState(1);
   const [tab, setTab] = useState('clasament');
+  const [sticky, setSticky] = useState('');
   const [toastMsg, setToastMsg] = useState('');
   const toastTimer = useRef(null);
   const toast = m => {
@@ -1369,8 +1631,6 @@ function App() {
     clearTimeout(toastTimer.current);
     toastTimer.current = setTimeout(() => setToastMsg(''), 2400);
   };
-
-  // boot: auto-login + config
   useEffect(() => {
     const saved = localStorage.getItem('ip26_me');
     setIsAdmin(localStorage.getItem('ip26_admin') === '1');
@@ -1387,30 +1647,31 @@ function App() {
       setScreen('hero');
     }
   }, []);
-
-  // realtime players when in app
   useEffect(() => {
     if (screen !== 'app') return;
-    const unsub = db.collection('players').onSnapshot(snap => {
-      const obj = {};
+    const u1 = db.collection('players').onSnapshot(snap => {
+      const o = {};
       snap.forEach(d => {
-        obj[d.id] = {
+        o[d.id] = {
           id: d.id,
           ...d.data()
         };
       });
-      setPlayers(obj);
+      setPlayers(o);
     });
-    // also keep config live
-    const unsub2 = db.collection('config').doc('game').onSnapshot(s => {
+    const u2 = db.collection('config').doc('game').onSnapshot(s => {
       if (s.exists) {
         setCouples(s.data().couples || []);
         if (s.data().currentEp) setCurEp(s.data().currentEp);
       }
     });
+    const u3 = db.collection('config').doc('sticky').onSnapshot(s => {
+      setSticky(s.exists ? s.data().msg || '' : '');
+    });
     return () => {
-      unsub();
-      unsub2();
+      u1();
+      u2();
+      u3();
     };
   }, [screen]);
   const doRegister = async ({
@@ -1475,15 +1736,13 @@ function App() {
     localStorage.removeItem('ip26_admin');
     setScreen('hero');
   };
-  if (screen === 'loading') {
-    return /*#__PURE__*/React.createElement("div", {
-      className: "fixed inset-0 flex flex-col items-center justify-center gap-4 bg-night"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "w-9 h-9 rounded-full border-[3px] border-teal/20 border-t-teal spin"
-    }), /*#__PURE__*/React.createElement("p", {
-      className: "text-fog text-sm"
-    }, "Se conectează la Firebase..."));
-  }
+  if (screen === 'loading') return /*#__PURE__*/React.createElement("div", {
+    className: "fixed inset-0 flex flex-col items-center justify-center gap-4 bg-ink"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "w-9 h-9 rounded-full border-[3px] border-line border-t-lime spin"
+  }), /*#__PURE__*/React.createElement("p", {
+    className: "text-mute text-sm"
+  }, "Se conectează la Firebase..."));
   if (screen === 'hero') return /*#__PURE__*/React.createElement(Hero, {
     onRegister: () => setScreen('register'),
     onLogin: () => setScreen('login')
@@ -1500,32 +1759,31 @@ function App() {
     onSwitch: () => setScreen('login'),
     onBack: () => setScreen('hero')
   });
-
-  // APP
   return /*#__PURE__*/React.createElement("div", {
-    className: "min-h-screen bg-night flex flex-col"
+    className: "min-h-screen bg-ink flex flex-col"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "sticky top-0 z-40 flex items-center px-4 h-14 border-b border-teal/12 bg-surface/85 backdrop-blur-xl"
+    className: "sticky top-0 z-40 flex items-center px-4 h-14 border-b border-line bg-ink2/85 backdrop-blur-xl"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "font-display text-base font-bold text-white"
-  }, "🏝️ ", /*#__PURE__*/React.createElement("span", {
-    className: "italic text-mango"
-  }, "Insula"), " Pariurilor"), /*#__PURE__*/React.createElement("div", {
+    className: "font-bold text-[.95rem] text-paper"
+  }, "INSULA", /*#__PURE__*/React.createElement("span", {
+    className: "text-lime"
+  }, "."), " PARIURILOR"), /*#__PURE__*/React.createElement("div", {
     className: "ml-auto flex items-center gap-2.5"
   }, isAdmin && /*#__PURE__*/React.createElement("span", {
-    className: "text-[.58rem] font-bold tracking-wide uppercase text-mango bg-mango/10 border border-mango/25 rounded-full px-2 py-0.5"
-  }, "🔑 Admin"), /*#__PURE__*/React.createElement("span", {
-    className: "text-[.72rem] text-teal font-semibold"
+    className: "mono text-[.55rem] tracking-wide uppercase text-lime bg-lime/10 border border-lime/25 rounded-full px-2 py-0.5"
+  }, "🔑 ADMIN"), /*#__PURE__*/React.createElement("span", {
+    className: "text-[.72rem] text-lime font-medium"
   }, me.emoji, " ", me.name), /*#__PURE__*/React.createElement("button", {
     onClick: logout,
-    className: "tap text-[.66rem] text-fog border border-teal/18 rounded px-2 py-1 active:text-coral"
-  }, "Ieși"))), /*#__PURE__*/React.createElement("div", {
-    className: "flex-1 overflow-y-auto px-4 pt-5 pb-28 max-w-[600px] w-full mx-auto"
+    className: "tap mono text-[.62rem] text-mute2 border border-line rounded px-2 py-1"
+  }, "IEȘI"))), /*#__PURE__*/React.createElement("div", {
+    className: "flex-1 overflow-y-auto px-4 pt-0 pb-28 max-w-[600px] w-full mx-auto"
   }, tab === 'clasament' && /*#__PURE__*/React.createElement(Leaderboard, {
     players: players,
     couples: couples,
     curEp: curEp,
-    meId: me.id
+    meId: me.id,
+    sticky: sticky
   }), tab === 'predictii' && /*#__PURE__*/React.createElement(Predictions, {
     couples: couples,
     meId: me.id,
@@ -1534,12 +1792,15 @@ function App() {
     meId: me.id,
     curEp: curEp,
     setCurEp: setCurEp,
+    players: players,
     toast: toast
   }), tab === 'situatii' && /*#__PURE__*/React.createElement(Situatii, {
     meId: me.id,
     curEp: curEp,
     players: players,
     toast: toast
+  }), tab === 'premii' && /*#__PURE__*/React.createElement(Prizes, {
+    players: players
   }), tab === 'regulament' && /*#__PURE__*/React.createElement(Regulament, null), tab === 'admin' && /*#__PURE__*/React.createElement(Admin, {
     isAdmin: isAdmin,
     setIsAdmin: setIsAdmin,
