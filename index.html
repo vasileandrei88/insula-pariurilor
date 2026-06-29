@@ -1260,6 +1260,67 @@ function Admin({
     });
     toast('📌 Mesaj fixat pe homepage!');
   };
+
+  // ── BACKUP / RESTORE ──
+  const BACKUP_COLLECTIONS = ['players', 'predictions', 'season_pred', 'bonfire_votes', 'overunder', 'situations', 'weekly_ans', 'episodes', 'config'];
+  const restoreRef = useRef(null);
+  const doBackup = async () => {
+    toast('💾 Se creează backup-ul...');
+    try {
+      const data = {
+        _version: 'insula-1.0',
+        _date: new Date().toISOString(),
+        collections: {}
+      };
+      for (const col of BACKUP_COLLECTIONS) {
+        const snap = await db.collection(col).get();
+        data.collections[col] = {};
+        snap.forEach(d => {
+          data.collections[col][d.id] = d.data();
+        });
+      }
+      const blob = new Blob([JSON.stringify(data, null, 2)], {
+        type: 'application/json'
+      });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'insula-backup-' + new Date().toISOString().slice(0, 16).replace(/[:T]/g, '-') + '.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      toast('✅ Backup descărcat!');
+    } catch (e) {
+      toast('❌ Eroare backup: ' + e.message);
+    }
+  };
+  const doRestore = async file => {
+    if (!file) return;
+    if (!confirm('⚠ Restaurarea ÎNLOCUIEȘTE toate datele actuale cu cele din fișier. Continui?')) return;
+    toast('🔄 Se restaurează...');
+    try {
+      const txt = await file.text();
+      const data = JSON.parse(txt);
+      if (!data.collections) throw new Error('Fișier invalid');
+      let batch = db.batch();
+      let count = 0;
+      for (const [col, docs] of Object.entries(data.collections)) {
+        for (const [id, docData] of Object.entries(docs)) {
+          batch.set(db.collection(col).doc(id), docData);
+          count++;
+          if (count % 400 === 0) {
+            await batch.commit();
+            batch = db.batch();
+          }
+        }
+      }
+      await batch.commit();
+      toast('✅ Restaurat! ' + count + ' documente. Reîncarcă pagina.');
+    } catch (e) {
+      toast('❌ Eroare restaurare: ' + e.message);
+    }
+  };
   const runAI = async () => {
     if (text.trim().length < 25) {
       toast('⚠ Lipește un text mai lung!');
@@ -1507,7 +1568,27 @@ REGULI: situatii=indici 0-based care apar CLAR. bonfire=da/nu/? pentru fiecare d
   }), /*#__PURE__*/React.createElement("button", {
     onClick: addCouple,
     className: "tap bg-transparent border border-lime/40 text-lime font-bold py-2.5 rounded-lg text-[.78rem]"
-  }, "+ Adaugă cuplu"))));
+  }, "+ Adaugă cuplu"))), /*#__PURE__*/React.createElement("div", {
+    className: "bg-ink2 border border-line rounded-2xl p-4 mt-4"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "mono text-[.58rem] tracking-[.13em] text-lime mb-1"
+  }, "💾 BACKUP / RESTAURARE"), /*#__PURE__*/React.createElement("div", {
+    className: "text-[.7rem] text-mute2 leading-relaxed mb-3"
+  }, "Descarcă toate datele într-un fișier. Fă backup des — ideal după fiecare episod procesat."), /*#__PURE__*/React.createElement("div", {
+    className: "flex gap-2"
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: doBackup,
+    className: "tap flex-1 bg-lime text-ink font-bold py-2.5 rounded-lg text-[.78rem]"
+  }, "⬇ Descarcă backup"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => restoreRef.current?.click(),
+    className: "tap flex-1 bg-transparent border border-ember/40 text-ember font-bold py-2.5 rounded-lg text-[.78rem]"
+  }, "⬆ Restaurează")), /*#__PURE__*/React.createElement("input", {
+    ref: restoreRef,
+    type: "file",
+    accept: "application/json,.json",
+    className: "hidden",
+    onChange: e => doRestore(e.target.files[0])
+  })));
 }
 function AdminResult({
   result,
