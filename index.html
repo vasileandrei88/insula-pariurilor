@@ -1042,7 +1042,7 @@ function Situatii({
   const toggle = async i => {
     const next = marked.includes(i) ? marked.filter(x => x !== i) : [...marked, i];
     setMarked(next);
-    if (!marked.includes(i)) toast(SITS[i].e + ' +' + SITS[i].p + ' pct!');
+    if (!marked.includes(i)) toast(SITS[i].e + ' pariat (+/−' + SITS[i].p + ')');
     await db.collection('situations').doc(meId).set({
       ['e' + curEp]: next
     }, {
@@ -1050,22 +1050,6 @@ function Situatii({
     });
   };
   const epPts = marked.reduce((s, i) => s + (SITS[i]?.p || 0), 0);
-  const save = async () => {
-    const cur = players[meId]?.pts?.sit || 0;
-    await db.collection('players').doc(meId).update({
-      'pts.sit': cur + epPts
-    });
-    toast('💾 +' + epPts + ' pct salvați în clasament!');
-  };
-  const reset = async () => {
-    setMarked([]);
-    await db.collection('situations').doc(meId).set({
-      ['e' + curEp]: []
-    }, {
-      merge: true
-    });
-    toast('🔄 Card resetat');
-  };
   return /*#__PURE__*/React.createElement("div", {
     className: "rise"
   }, /*#__PURE__*/React.createElement(PageHero, {
@@ -1073,15 +1057,25 @@ function Situatii({
     eyebrow: "MODUL 3 · LIVE",
     title: "Cardul de Situații"
   }), /*#__PURE__*/React.createElement("div", {
+    className: "bg-ember/[.08] border border-ember/25 rounded-2xl px-4 py-3 mb-4 flex gap-2.5 items-start"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "text-base"
+  }, "⚠️"), /*#__PURE__*/React.createElement("div", {
+    className: "text-[.74rem] text-paper/90 leading-snug"
+  }, "Bifează doar ce crezi că se va întâmpla. La validare: ghicești corect → ", /*#__PURE__*/React.createElement("b", {
+    className: "text-lime"
+  }, "+puncte"), ". Bifezi greșit → ", /*#__PURE__*/React.createElement("b", {
+    className: "text-ember"
+  }, "−puncte"), " (cât valora). Nu bifa la noroc!")), /*#__PURE__*/React.createElement("div", {
     className: "flex items-center justify-between bg-ink2 border border-line rounded-2xl px-4 py-3 mb-4"
-  }, /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     className: "text-[.72rem] text-mute"
-  }, "Puncte episodul ", curEp), /*#__PURE__*/React.createElement("div", {
-    className: "mono text-3xl font-medium text-lime leading-none"
-  }, epPts, /*#__PURE__*/React.createElement("span", {
-    className: "text-sm text-mute2"
-  }, " pct"))), loading ? /*#__PURE__*/React.createElement(Spinner, null) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
-    className: "grid grid-cols-2 gap-2 mb-4"
+  }, "Pariuri active · ep ", curEp), /*#__PURE__*/React.createElement("div", {
+    className: "text-[.62rem] text-mute2 mt-0.5"
+  }, marked.length, " bifate · risc ", epPts, " pct")), /*#__PURE__*/React.createElement("div", {
+    className: "mono text-3xl font-medium text-ember leading-none"
+  }, marked.length)), loading ? /*#__PURE__*/React.createElement(Spinner, null) : /*#__PURE__*/React.createElement("div", {
+    className: "grid grid-cols-2 gap-2"
   }, SITS.map((s, i) => {
     const on = marked.includes(i);
     const sc = s.s === 5 ? 'text-lime' : s.s === 3 ? 'text-lime/70' : s.s === 2 ? 'text-lime/50' : 'text-lime/30';
@@ -1102,22 +1096,14 @@ function Situatii({
     }, "+", s.p), /*#__PURE__*/React.createElement("span", {
       className: "text-[.55rem] " + sc
     }, starStr(s.s))));
-  })), /*#__PURE__*/React.createElement("div", {
-    className: "flex gap-2"
-  }, /*#__PURE__*/React.createElement("button", {
-    onClick: save,
-    className: "tap flex-1 bg-lime text-ink font-bold py-3 rounded-xl"
-  }, "Salvează în clasament"), /*#__PURE__*/React.createElement("button", {
-    onClick: reset,
-    className: "tap bg-transparent border border-line text-mute font-bold px-4 py-3 rounded-xl"
-  }, "Reset"))));
+  })));
 }
 
 // ═══════════════════════════════════════════
 // REGULAMENT + BADGES
 // ═══════════════════════════════════════════
 function Regulament() {
-  const rows = [['🔮', 'Predicții de Sezon', 'Pe cuplu (8 întrebări) + predicții globale cu miză mare. Punctele la final de sezon.', [['Răspuns exact', '+15'], ['Răspuns parțial', '+7'], ['Predicție globală', '+10…+20']]], ['🔥', 'Bonfire Live', '16 întrebări (serioase + meme reale) + pariuri Peste/Sub. Votezi înainte de scenă.', [['Răspuns Da/Nu corect', '+3'], ['Pariu Peste/Sub corect', '+5'], ['Întrebarea săptămânii', 'PUNCTAJ DUBLU']]], ['📋', 'Cardul de Situații', '20 situații cu 4 niveluri de raritate. Bifezi în timp real.', [['Comună ★', '+1'], ['Medie ★★', '+2'], ['Rară ★★★', '+3'], ['Legendară ★★★★★', '+5']]], ['🤖', 'Admin AI', 'Adminul lipește rezumatul → Claude detectează tot și actualizează toți jucătorii.', []]];
+  const rows = [['🔮', 'Predicții de Sezon', 'Pe cuplu (8 întrebări) + predicții globale cu miză mare. Punctele la final de sezon.', [['Răspuns exact', '+15'], ['Răspuns parțial', '+7'], ['Predicție globală', '+10…+20']]], ['🔥', 'Bonfire Live', '16 întrebări (serioase + meme reale) + pariuri Peste/Sub. Votezi înainte de scenă.', [['Răspuns Da/Nu corect', '+3'], ['Pariu Peste/Sub corect', '+5'], ['Întrebarea săptămânii', 'PUNCTAJ DUBLU']]], ['📋', 'Cardul de Situații', '20 situații, 4 niveluri. Pariezi pe ce crezi că va apărea. Ghicești → +pct, greșești → −pct (cât valora). Validat de admin.', [['Comună ★ (corect / greșit)', '+1 / −1'], ['Medie ★★', '+2 / −2'], ['Rară ★★★', '+3 / −3'], ['Legendară ★★★★★', '+5 / −5']]], ['🤖', 'Admin AI', 'Adminul lipește rezumatul → Claude detectează tot și actualizează toți jucătorii.', []]];
   return /*#__PURE__*/React.createElement("div", {
     className: "rise"
   }, /*#__PURE__*/React.createElement(PageHero, {
@@ -1371,25 +1357,52 @@ REGULI: situatii=indici 0-based care apar CLAR. bonfire=da/nu/? pentru fiecare d
   };
   const apply = async () => {
     if (!result) return;
-    const found = result.situatii || [];
-    const bf = result.bonfire || {};
-    const sp = found.reduce((s, i) => s + (SITS[i]?.p || 0), 0);
-    const by = Object.values(bf).filter(v => v === 'da').length;
-    const bp = by * 3;
+    const found = result.situatii || []; // situații confirmate de AI (indici)
+    const bf = result.bonfire || {}; // răspunsuri corecte bonfire
+    const ek = 'e' + ep;
+
+    // Citesc bifele de situații + voturile bonfire ale TUTUROR jucătorilor
+    const [sitSnap, bfSnap] = await Promise.all([db.collection('situations').get(), db.collection('bonfire_votes').get()]);
+    const sitByPlayer = {};
+    sitSnap.forEach(d => {
+      sitByPlayer[d.id] = d.data()[ek] || [];
+    });
+    const bfByPlayer = {};
+    bfSnap.forEach(d => {
+      bfByPlayer[d.id] = d.data()[ek] || {};
+    });
     const batch = db.batch();
+    let totSit = 0,
+      totBf = 0;
     Object.values(players).forEach(p => {
+      // Situații: +puncte dacă bifat ȘI confirmat, −puncte dacă bifat DAR neconfirmat (penalizare după raritate)
+      const myMarks = sitByPlayer[p.id] || [];
+      let sitPts = 0;
+      myMarks.forEach(i => {
+        const val = SITS[i]?.p || 0;
+        sitPts += found.includes(i) ? val : -val;
+      });
+      // Bonfire: +3 pentru fiecare răspuns care coincide cu adevărul (ignoră „?")
+      const myVotes = bfByPlayer[p.id] || {};
+      let bfPts = 0;
+      Object.entries(bf).forEach(([qi, truth]) => {
+        if (truth !== 'da' && truth !== 'nu') return;
+        if (myVotes[qi] === truth) bfPts += 3;
+      });
+      totSit += sitPts;
+      totBf += bfPts;
       batch.update(db.collection('players').doc(p.id), {
-        'pts.sit': (p.pts?.sit || 0) + sp,
-        'pts.bf': (p.pts?.bf || 0) + bp
+        'pts.sit': (p.pts?.sit || 0) + sitPts,
+        'pts.bf': (p.pts?.bf || 0) + bfPts
       });
     });
     await batch.commit();
+    const sitMax = found.reduce((s, i) => s + (SITS[i]?.p || 0), 0);
     await db.collection('episodes').doc('ep' + ep).set({
       ep,
       sitFound: found,
       bfAnswers: bf,
-      sitPts: sp,
-      bfPts: bp,
+      sitPtsMax: sitMax,
       sumar: result.sumar || '',
       processedBy: meName,
       processedAt: firebase.firestore.FieldValue.serverTimestamp()
@@ -1400,7 +1413,7 @@ REGULI: situatii=indici 0-based care apar CLAR. bonfire=da/nu/? pentru fiecare d
       merge: true
     });
     setCurEp(ep);
-    toast(`✅ Ep.${ep} aplicat! +${sp}pct sit · +${bp}pct bonfire · ${Object.keys(players).length} jucători`);
+    toast(`✅ Ep.${ep} validat! Punctele s-au împărțit per jucător după ce a bifat/votat fiecare.`);
     setResult(null);
     setText('');
     loadHist();
